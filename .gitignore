@@ -1,0 +1,12 @@
+CMakeLists.txt
+.idea/Corpus.iml
+cmake-build-debug/Corpus.cbp
+cmake-build-debug/libCorpus.a
+cmake-build-debug/CMakeFiles/Corpus.dir/build.make
+cmake-build-debug/CMakeFiles/Corpus.dir/cmake_clean.cmake
+cmake-build-debug/CMakeFiles/Corpus.dir/cmake_clean_target.cmake
+cmake-build-debug/CMakeFiles/Corpus.dir/depend.make
+cmake-build-debug/CMakeFiles/Corpus.dir/DependInfo.cmake
+cmake-build-debug/CMakeFiles/Corpus.dir/flags.make
+cmake-build-debug/CMakeFiles/Corpus.dir/link.txt
+cmake-build-debug/CMakeFiles/Corpus.dir/progress.make
