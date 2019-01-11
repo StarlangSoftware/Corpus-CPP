@@ -5,6 +5,8 @@
 #ifndef CORPUS_SENTENCESPLITTER_H
 #define CORPUS_SENTENCESPLITTER_H
 #include <string>
+#include "Sentence.h"
+
 using namespace std;
 
 class SentenceSplitter {

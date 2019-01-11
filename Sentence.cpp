@@ -151,3 +151,71 @@ int Sentence::charCount() {
         sum += word.charCount();
     return sum;
 }
+
+/**
+ * The replaceWord method takes an index and a word as inputs. It removes the word at given index from words
+ * {@link vector} and then adds the given word to given index of words.
+ *
+ * @param i       index.
+ * @param newWord to add the words {@link vector}.
+ */
+void Sentence::replaceWord(int i, Word newWord) {
+    words.erase(words.begin() + i);
+    words.insert(words.begin() + i, newWord);
+}
+
+/**
+ * The safeIndex method takes an index as an input and checks whether this index is between 0 and the size of the words.
+ *
+ * @param index is used to check the safety.
+ * @return true if an index is safe, false otherwise.
+ */
+bool Sentence::safeIndex(int index) {
+    return index >= 0 && index < words.size();
+}
+
+/**
+ * The overridden toString method returns an accumulated string of each word in words {@link ArrayList}.
+ *
+ * @return String result which has all the word in words {@link ArrayList}.
+ */
+string Sentence::to_string() {
+    if (words.size() > 0) {
+        string result = words.at(0).to_string();
+        for (int i = 1; i < words.size(); i++) {
+            result += " ";
+            result += words.at(i).to_string();
+        }
+        return result;
+    } else {
+        return "";
+    }
+}
+
+/**
+ * The toWords method returns an accumulated string of each word's names in words {@link ArrayList}.
+ *
+ * @return String result which has all the names of each item in words {@link ArrayList}.
+ */
+string Sentence::toWords(){
+    if (words.size() > 0) {
+        string result = words.at(0).getName();
+        for (int i = 1; i < words.size(); i++) {
+            result += " ";
+            result += words.at(i).getName();
+        }
+        return result;
+    } else {
+        return "";
+    }
+}
+
+/**
+ * The writeToFile method writes the given file by using toString method.
+ *
+ * @param file to write in.
+ */
+void Sentence::writeToFile(ofstream file){
+    file << to_string();
+    file.close();
+}

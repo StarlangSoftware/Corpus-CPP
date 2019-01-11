@@ -26,6 +26,11 @@ public:
     unsigned long wordCount();
     void addWord(Word word);
     int charCount();
+    void replaceWord(int i, Word newWord);
+    bool safeIndex(int index);
+    string to_string();
+    string toWords();
+    void writeToFile(ofstream file);
 
     /**
      * The == method takes a Sentence as an input. First compares the sizes of both {@link vector} words and words
