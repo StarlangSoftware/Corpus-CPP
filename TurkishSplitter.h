@@ -16,6 +16,11 @@ private:
     bool isPreviousWordUpperCase(string line, int i);
     bool isNextCharUpperCase(string line, int i);
     bool isNameShortcut(string currentWord);
+    string repeatControl(string word, bool exceptionMode);
+    bool isApostrophe(string line, int i);
+    bool numberExistsBeforeAndAfter(string line, int i);
+    bool isTime(string line, int i);
+    vector<Sentence> split(string line);
 };
 
 
