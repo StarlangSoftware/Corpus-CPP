@@ -17,8 +17,8 @@ public:
     virtual vector<Sentence> split(string line) = 0;
 };
 
-const inline string SEPARATORS = "()[]{}\"'\u05F4\uFF02\u055B";
-const inline string SENTENCE_ENDERS = ".?!…";
-const inline string PUNCTUATION_CHARACTERS = ",:;";
+const inline string SentenceSplitter::SEPARATORS = "()[]{}\"'\u05F4\uFF02\u055B";
+const inline string SentenceSplitter::SENTENCE_ENDERS = ".?!…";
+const inline string SentenceSplitter::PUNCTUATION_CHARACTERS = ",:;";
 
 #endif //CORPUS_SENTENCESPLITTER_H

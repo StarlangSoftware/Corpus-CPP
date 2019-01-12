@@ -19,7 +19,7 @@ Sentence::Sentence() {
  */
 Sentence Sentence::clone() {
     Sentence s = Sentence();
-    for (Word w : words)
+    for (const Word& w : words)
         s.addWord(w);
     return s;
 }
@@ -63,11 +63,11 @@ Sentence::Sentence(string sentence) {
  * @param sentence        String input.
  * @param languageChecker {@link LanguageChecker} type input.
  */
-Sentence::Sentence(string sentence, LanguageChecker languageChecker) {
+Sentence::Sentence(string sentence, LanguageChecker* languageChecker) {
     istringstream iss(sentence);
     vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
     for (const string &word : results) {
-        if (!word.empty() && languageChecker.isValidWord(word)) {
+        if (!word.empty() && languageChecker->isValidWord(word)) {
             words.emplace_back(Word(word));
         }
     }
@@ -180,7 +180,7 @@ bool Sentence::safeIndex(int index) {
  * @return String result which has all the word in words {@link ArrayList}.
  */
 string Sentence::to_string() {
-    if (words.size() > 0) {
+    if (!words.empty()) {
         string result = words.at(0).to_string();
         for (int i = 1; i < words.size(); i++) {
             result += " ";
@@ -198,7 +198,7 @@ string Sentence::to_string() {
  * @return String result which has all the names of each item in words {@link ArrayList}.
  */
 string Sentence::toWords(){
-    if (words.size() > 0) {
+    if (!words.empty()) {
         string result = words.at(0).getName();
         for (int i = 1; i < words.size(); i++) {
             result += " ";

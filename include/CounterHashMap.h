@@ -11,12 +11,11 @@
 using namespace std;
 
 template <class K> class CounterHashMap : public map<K, int> {
-private:
-    bool containsKey(K key);
 public:
     CounterHashMap();
     void put(K key);
     void putNTimes(K key, int N);
+    bool containsKey(K key);
     int count(K key);
     int sumOfCounts();
     K max();

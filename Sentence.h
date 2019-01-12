@@ -18,7 +18,7 @@ public:
     Sentence clone();
     Sentence(ifstream file);
     Sentence(string sentence);
-    Sentence(string sentence, LanguageChecker languageChecker);
+    Sentence(string sentence, LanguageChecker* languageChecker);
     Word getWord(int index);
     vector<Word> getWords();
     vector<string> getStrings();
