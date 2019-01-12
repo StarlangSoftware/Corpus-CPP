@@ -32,6 +32,9 @@ public:
     bool operator==(const Word &anotherWord) const{
         return (name == anotherWord.name);
     }
+    bool operator<(const Word &anotherWord) const{
+        return (name < anotherWord.name);
+    }
 };
 
 

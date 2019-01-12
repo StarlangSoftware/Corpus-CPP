@@ -9,7 +9,7 @@
 
 class TurkishChecker : public LanguageChecker {
 public:
-    bool isValidWord(string word);
+    bool isValidWord(string word) override;
 };
 
 
