@@ -12,6 +12,11 @@
 Sentence::Sentence() {
 }
 
+Sentence::~Sentence(){
+    for (auto& word : words){
+        delete word;
+    }
+}
 /**
  * The overridden clone method which creates a new sentence and clone words to this sentence.
  *
@@ -19,8 +24,8 @@ Sentence::Sentence() {
  */
 Sentence Sentence::clone() {
     Sentence s = Sentence();
-    for (const Word& w : words)
-        s.addWord(w);
+    for (Word* w : words)
+        s.addWord(new Word(w->getName()));
     return s;
 }
 
@@ -34,7 +39,7 @@ Sentence::Sentence(ifstream file) {
     while (file.good()) {
         string word;
         file >> word;
-        words.emplace_back(Word(word));
+        words.emplace_back(new Word(word));
     }
     file.close();
 }
@@ -50,7 +55,7 @@ Sentence::Sentence(string sentence) {
     vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
     for (const string &word : results) {
         if (!word.empty()) {
-            words.emplace_back(Word(word));
+            words.emplace_back(new Word(word));
         }
     }
 }
@@ -68,7 +73,7 @@ Sentence::Sentence(string sentence, LanguageChecker* languageChecker) {
     vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
     for (const string &word : results) {
         if (!word.empty() && languageChecker->isValidWord(word)) {
-            words.emplace_back(Word(word));
+            words.emplace_back(new Word(word));
         }
     }
 }
@@ -79,7 +84,7 @@ Sentence::Sentence(string sentence, LanguageChecker* languageChecker) {
  * @param index is used to get the word.
  * @return the word in given index.
  */
-Word Sentence::getWord(int index) {
+Word* Sentence::getWord(int index) {
     return words.at(index);
 }
 
@@ -88,7 +93,7 @@ Word Sentence::getWord(int index) {
  *
  * @return words vector.
  */
-vector<Word> Sentence::getWords() {
+vector<Word*> Sentence::getWords() {
     return words;
 }
 
@@ -100,8 +105,8 @@ vector<Word> Sentence::getWords() {
  */
 vector<string> Sentence::getStrings() {
     vector<string> result;
-    for (const Word& word : words) {
-        result.emplace_back(word.getName());
+    for (Word* word : words) {
+        result.emplace_back(word->getName());
     }
     return result;
 }
@@ -112,10 +117,10 @@ vector<string> Sentence::getStrings() {
  * @param word Word type input to search for.
  * @return index of the found input, -1 if not found.
  */
-int Sentence::getIndex(Word word) {
+int Sentence::getIndex(Word* word) {
     int i = 0;
-    for (const Word& w : words) {
-        if (w == word)
+    for (Word* w : words) {
+        if (w->getName() == word->getName())
             return i;
         i++;
     }
@@ -136,7 +141,7 @@ unsigned long Sentence::wordCount() {
  *
  * @param word Word to add words {@link vector}.
  */
-void Sentence::addWord(Word word) {
+void Sentence::addWord(Word* word) {
     words.emplace_back(word);
 }
 
@@ -147,8 +152,8 @@ void Sentence::addWord(Word word) {
  */
 int Sentence::charCount() {
     int sum = 0;
-    for (Word word : words)
-        sum += word.charCount();
+    for (Word* word : words)
+        sum += word->charCount();
     return sum;
 }
 
@@ -159,7 +164,7 @@ int Sentence::charCount() {
  * @param i       index.
  * @param newWord to add the words {@link vector}.
  */
-void Sentence::replaceWord(int i, Word newWord) {
+void Sentence::replaceWord(int i, Word* newWord) {
     words.erase(words.begin() + i);
     words.insert(words.begin() + i, newWord);
 }
@@ -181,10 +186,10 @@ bool Sentence::safeIndex(int index) {
  */
 string Sentence::to_string() {
     if (!words.empty()) {
-        string result = words.at(0).to_string();
+        string result = words.at(0)->to_string();
         for (int i = 1; i < words.size(); i++) {
             result += " ";
-            result += words.at(i).to_string();
+            result += words.at(i)->to_string();
         }
         return result;
     } else {
@@ -199,10 +204,10 @@ string Sentence::to_string() {
  */
 string Sentence::toWords(){
     if (!words.empty()) {
-        string result = words.at(0).getName();
+        string result = words.at(0)->getName();
         for (int i = 1; i < words.size(); i++) {
             result += " ";
-            result += words.at(i).getName();
+            result += words.at(i)->getName();
         }
         return result;
     } else {

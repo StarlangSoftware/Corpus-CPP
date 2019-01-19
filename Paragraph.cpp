@@ -10,12 +10,18 @@
 Paragraph::Paragraph() {
 }
 
+Paragraph::~Paragraph() {
+    for (auto& sentence : sentences){
+        delete sentence;
+    }
+}
+
 /**
  * The addSentence method adds given sentence to sentences {@link vector}.
  *
  * @param s Sentence type input to add sentences.
  */
-void Paragraph::addSentence(Sentence s) {
+void Paragraph::addSentence(Sentence* s) {
     sentences.emplace_back(s);
 }
 
@@ -34,6 +40,6 @@ int Paragraph::sentenceCount() {
  * @param index used to get a sentence.
  * @return sentence at given index.
  */
-Sentence Paragraph::getSentence(unsigned long index) {
+Sentence* Paragraph::getSentence(unsigned long index) {
     return sentences.at(index);
 }

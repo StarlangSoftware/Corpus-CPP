@@ -275,9 +275,9 @@ vector<Sentence> TurkishSplitter::split(string line) {
                 currentWord += line[i];
             } else {
                 if (!currentWord.empty()) {
-                    currentSentence.addWord(Word(repeatControl(currentWord, webMode || emailMode)));
+                    currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                 }
-                currentSentence.addWord(Word(string(1, line[i])));
+                currentSentence.addWord(new Word(string(1, line[i])));
                 currentWord = "";
                 switch (line[i]) {
                     case '{':
@@ -321,27 +321,27 @@ vector<Sentence> TurkishSplitter::split(string line) {
                 } else {
                     if (line[i] == '.' && (listContains(currentWord) || isNameShortcut(currentWord))) {
                         currentWord += line[i];
-                        currentSentence.addWord(Word(currentWord));
+                        currentSentence.addWord(new Word(currentWord));
                         currentWord = "";
                     } else {
                         if (!currentWord.empty()) {
-                            currentSentence.addWord(Word(repeatControl(currentWord, webMode || emailMode)));
+                            currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         }
                         currentWord = line[i];
                         do {
                             i++;
                         } while (i < line.length() && contains(SENTENCE_ENDERS, line[i]));
                         i--;
-                        currentSentence.addWord(Word(currentWord));
+                        currentSentence.addWord(new Word(currentWord));
                         if (roundParenthesisCount == 0 && bracketCount == 0 && curlyBracketCount == 0 && quotaCount == 0) {
                             if (i + 1 < line.length() && line[i + 1] == '\'' && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 2)) {
-                                currentSentence.addWord(Word("'"));
+                                currentSentence.addWord(new Word("'"));
                                 i++;
                                 sentences.emplace_back(currentSentence);
                                 currentSentence = Sentence();
                             } else {
                                 if (i + 2 < line.length() && line[i + 1] == ' ' && line[i + 2] == '\'' && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 3)) {
-                                    currentSentence.addWord(Word("'"));
+                                    currentSentence.addWord(new Word("'"));
                                     i += 2;
                                     sentences.emplace_back(currentSentence);
                                     currentSentence = Sentence();
@@ -361,13 +361,13 @@ vector<Sentence> TurkishSplitter::split(string line) {
                     emailMode = false;
                     webMode = false;
                     if (!currentWord.empty()) {
-                        currentSentence.addWord(Word(repeatControl(currentWord, webMode || emailMode)));
+                        currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         currentWord = "";
                     }
                 } else {
                     if (line[i] == '-' && !webMode && roundParenthesisCount == 0 && isNextCharUpperCase(line, i + 1) && !isPreviousWordUpperCase(line, i - 1)) {
                         if (!currentWord.empty() && TurkishLanguage::DIGITS.find_first_of(currentWord) == -1) {
-                            currentSentence.addWord(Word(repeatControl(currentWord, webMode || emailMode)));
+                            currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         }
                         if (currentSentence.wordCount() > 0) {
                             sentences.emplace_back(currentSentence);
@@ -375,9 +375,9 @@ vector<Sentence> TurkishSplitter::split(string line) {
                         currentSentence = Sentence();
                         roundParenthesisCount = bracketCount = curlyBracketCount = quotaCount = 0;
                         if (!currentWord.empty() && regex_match(currentWord, regex("\\d+"))) {
-                            currentSentence.addWord(Word(currentWord + " -"));
+                            currentSentence.addWord(new Word(currentWord + " -"));
                         } else {
-                            currentSentence.addWord(Word("-"));
+                            currentSentence.addWord(new Word("-"));
                         }
                         currentWord = "";
                     } else {
@@ -398,9 +398,9 @@ vector<Sentence> TurkishSplitter::split(string line) {
                                             currentWord += line[i];
                                         } else {
                                             if (!currentWord.empty()) {
-                                                currentSentence.addWord(Word(repeatControl(currentWord, webMode || emailMode)));
+                                                currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                                             }
-                                            currentSentence.addWord(Word(string(1, line[i])));
+                                            currentSentence.addWord(new Word(string(1, line[i])));
                                             currentWord = "";
                                         }
                                     }
@@ -421,7 +421,7 @@ vector<Sentence> TurkishSplitter::split(string line) {
         i++;
     }
     if (!currentWord.empty()) {
-        currentSentence.addWord(Word(repeatControl(currentWord, webMode || emailMode)));
+        currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
     }
     if (currentSentence.wordCount() > 0) {
         sentences.emplace_back(currentSentence);

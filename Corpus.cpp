@@ -17,6 +17,12 @@ using namespace std;
 Corpus::Corpus() {
 }
 
+Corpus::~Corpus() {
+    for (auto &sentence : sentences) {
+        delete sentence;
+    }
+}
+
 /**
  * The emptyCopy method returns new Corpus.
  *
@@ -39,7 +45,7 @@ Corpus::Corpus(string fileName) {
     string line;
     while (inputStream.good()){
         getline(inputStream, line);
-        addSentence(Sentence(line));
+        addSentence(new Sentence(line));
     }
 }
 
@@ -60,8 +66,8 @@ Corpus::Corpus(string fileName, SentenceSplitter sentenceSplitter) {
     while (inputStream.good()) {
         getline(inputStream, line);
         sentences = sentenceSplitter.split(line);
-        for (const Sentence &s : sentences) {
-            addSentence(s);
+        for (Sentence s : sentences) {
+            addSentence(&s);
         }
     }
 }
@@ -80,7 +86,7 @@ Corpus::Corpus(string fileName, LanguageChecker* languageChecker) {
     inputStream.open(fileName, ifstream::in);
     while (inputStream.good()) {
         getline(inputStream, line);
-        Sentence s = Sentence(line, languageChecker);
+        Sentence* s = new Sentence(line, languageChecker);
         addSentence(s);
     }
 }
@@ -91,7 +97,7 @@ Corpus::Corpus(string fileName, LanguageChecker* languageChecker) {
  * @param corpus {@link Corpus} type input.
  */
 void Corpus::combine(Corpus corpus) {
-    for (const Sentence &sentence : corpus.sentences) {
+    for (Sentence* sentence : corpus.sentences) {
         addSentence(sentence);
     }
 }
@@ -103,12 +109,12 @@ void Corpus::combine(Corpus corpus) {
  * @param s Sentence type input that will be added to sentences {@link ArrayList} and its words will be added to wordList
  *          {@link CounterHashMap}.
  */
-void Corpus::addSentence(Sentence s) {
-    Word w;
+void Corpus::addSentence(Sentence* s) {
+    Word* w;
     sentences.emplace_back(s);
-    for (int i = 0; i < s.wordCount(); i++) {
-        w = s.getWord(i);
-        wordList.put(w);
+    for (int i = 0; i < s->wordCount(); i++) {
+        w = s->getWord(i);
+        wordList.put(*w);
     }
 }
 
@@ -119,8 +125,8 @@ void Corpus::addSentence(Sentence s) {
  */
 int Corpus::numberOfWords() {
     int size = 0;
-    for (Sentence s : sentences) {
-        size += s.wordCount();
+    for (Sentence* s : sentences) {
+        size += s->wordCount();
     }
     return size;
 }
@@ -186,7 +192,7 @@ int Corpus::wordCount() {
  * @return the count value of given word.
  */
 int Corpus::getCount(Word word) {
-    return wordList.count(move(word));
+    return wordList.count(word);
 }
 
 /**
@@ -204,7 +210,7 @@ int Corpus::sentenceCount() {
  * @param index to get sentence from.
  * @return the sentence at given index.
  */
-Sentence Corpus::getSentence(int index) {
+Sentence* Corpus::getSentence(int index) {
     return sentences.at(index);
 }
 
@@ -215,9 +221,9 @@ Sentence Corpus::getSentence(int index) {
  */
 int Corpus::maxSentenceLength() {
     int maxLength = 0;
-    for (Sentence s : sentences) {
-        if (s.wordCount() + 1 > maxLength)
-            maxLength = s.wordCount() + 1;
+    for (Sentence* s : sentences) {
+        if (s->wordCount() + 1 > maxLength)
+            maxLength = s->wordCount() + 1;
     }
     return maxLength;
 }
@@ -228,11 +234,11 @@ int Corpus::maxSentenceLength() {
  *
  * @return newly created and populated {@link vector}.
  */
-vector<vector<Word>> Corpus::getAllWordsAsVector() {
-    vector<vector<Word>> allWords;
+vector<vector<Word*>> Corpus::getAllWordsAsVector() {
+    vector<vector<Word*>> allWords;
     allWords.reserve(sentenceCount());
     for (int i = 0; i < sentenceCount(); i++) {
-        allWords.emplace_back(getSentence(i).getWords());
+        allWords.emplace_back(getSentence(i)->getWords());
     }
     return allWords;
 }
@@ -296,8 +302,8 @@ Corpus Corpus::getTestCorpus(int foldNo, int foldCount) {
 void Corpus::writeToFile(string fileName) {
     ofstream output;
     output.open(fileName, ofstream :: out);
-    for (Sentence sentence : sentences) {
-        output << sentence.to_string();
+    for (Sentence* sentence : sentences) {
+        output << sentence->to_string();
         output << "\n";
     }
     output.close();
@@ -342,27 +348,27 @@ void Corpus::writeToFile(string fileName, WordFormat format) {
     string result;
     ofstream output;
     output.open(fileName, ofstream :: out);
-    for (Sentence sentence : sentences) {
+    for (Sentence* sentence : sentences) {
         switch (format) {
             case WordFormat::SURFACE:
-                result = "<s> " + sentence.to_string() + " </s>\n";
+                result = "<s> " + sentence->to_string() + " </s>\n";
                 break;
             case WordFormat::LETTER_2:
                 result = "";
-                for (int i = 0; i < sentence.wordCount(); i++) {
-                    result += allSubStrings(sentence.getWord(i), 2);
+                for (int i = 0; i < sentence->wordCount(); i++) {
+                    result += allSubStrings(*sentence->getWord(i), 2);
                 }
                 break;
             case WordFormat::LETTER_3:
                 result = "";
-                for (int i = 0; i < sentence.wordCount(); i++) {
-                    result += allSubStrings(sentence.getWord(i), 3);
+                for (int i = 0; i < sentence->wordCount(); i++) {
+                    result += allSubStrings(*sentence->getWord(i), 3);
                 }
                 break;
             case WordFormat::LETTER_4:
                 result = "";
-                for (int i = 0; i < sentence.wordCount(); i++) {
-                    result += allSubStrings(sentence.getWord(i), 4);
+                for (int i = 0; i < sentence->wordCount(); i++) {
+                    result += allSubStrings(*sentence->getWord(i), 4);
                 }
                 break;
         }

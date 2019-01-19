@@ -15,17 +15,18 @@
 
 class Corpus {
 protected:
-    vector<Sentence> sentences;
+    vector<Sentence*> sentences;
     CounterHashMap<Word> wordList;
     string fileName;
 public:
     Corpus();
+    ~Corpus();
     Corpus emptyCopy();
     Corpus(string fileName);
     Corpus(string fileName, SentenceSplitter sentenceSplitter);
     Corpus(string fileName, LanguageChecker* languageChecker);
     void combine(Corpus corpus);
-    void addSentence(Sentence s);
+    void addSentence(Sentence* s);
     int numberOfWords();
     bool contains(string word);
     void addParagraph(Paragraph p);
@@ -34,9 +35,9 @@ public:
     int wordCount();
     int getCount(Word word);
     int sentenceCount();
-    Sentence getSentence(int index);
+    Sentence* getSentence(int index);
     int maxSentenceLength();
-    vector<vector<Word>> getAllWordsAsVector();
+    vector<vector<Word*>> getAllWordsAsVector();
     void shuffleSentences(int seed);
     Corpus getTrainCorpus(int foldNo, int foldCount);
     Corpus getTestCorpus(int foldNo, int foldCount);

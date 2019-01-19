@@ -12,12 +12,13 @@ using namespace std;
 
 class Paragraph {
 private:
-    vector<Sentence> sentences;
+    vector<Sentence*> sentences;
 public:
     Paragraph();
-    void addSentence(Sentence s);
+    ~Paragraph();
+    void addSentence(Sentence* s);
     int sentenceCount();
-    Sentence getSentence(unsigned long index);
+    Sentence* getSentence(unsigned long index);
 };
 
 

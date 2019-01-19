@@ -12,21 +12,22 @@ using namespace std;
 
 class Sentence {
 protected:
-    vector<Word> words;
+    vector<Word*> words;
 public:
     Sentence();
+    ~Sentence();
     Sentence clone();
     Sentence(ifstream file);
     Sentence(string sentence);
     Sentence(string sentence, LanguageChecker* languageChecker);
-    Word getWord(int index);
-    vector<Word> getWords();
+    Word* getWord(int index);
+    vector<Word*> getWords();
     vector<string> getStrings();
-    int getIndex(Word word);
+    int getIndex(Word* word);
     unsigned long wordCount();
-    void addWord(Word word);
+    void addWord(Word* word);
     int charCount();
-    void replaceWord(int i, Word newWord);
+    void replaceWord(int i, Word* newWord);
     bool safeIndex(int index);
     string to_string();
     string toWords();
@@ -44,7 +45,7 @@ public:
         if (words.size() != anotherSentence.words.size())
             return false;
         for (unsigned long i = 0; i < words.size(); i++){
-            if (words.at(i).getName() != anotherSentence.words.at(i).getName()){
+            if (words.at(i)->getName() != anotherSentence.words.at(i)->getName()){
                 return false;
             }
         }
