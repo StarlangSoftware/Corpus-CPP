@@ -110,11 +110,10 @@ void Corpus::combine(Corpus corpus) {
  *          {@link CounterHashMap}.
  */
 void Corpus::addSentence(Sentence* s) {
-    Word* w;
     sentences.emplace_back(s);
-    for (int i = 0; i < s->wordCount(); i++) {
-        w = s->getWord(i);
-        wordList.put(*w);
+    vector<Word> words = s->getWordList();
+    for (Word w : words) {
+        wordList.put(w);
     }
 }
 
