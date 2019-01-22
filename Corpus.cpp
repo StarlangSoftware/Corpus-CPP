@@ -247,13 +247,7 @@ vector<Word>* Corpus::getAllWordsAsArray(){
     vector<Word>* allWords;
     allWords = new vector<Word>[sentenceCount()];
     for (int i = 0; i < sentenceCount(); i++) {
-        vector<Word*> words = getSentence(i)->getWords();
-        vector<Word> wordList;
-        wordList.reserve(words.size());
-        for (auto &word : words) {
-            wordList.push_back(*word);
-        }
-        allWords[i] = wordList;
+        allWords[i] = getSentence(i)->getWordList();
     }
     return allWords;
 }

@@ -22,6 +22,7 @@ public:
     Sentence(string sentence, LanguageChecker* languageChecker);
     Word* getWord(int index);
     vector<Word*> getWords();
+    vector<Word> getWordList();
     vector<string> getStrings();
     int getIndex(Word* word);
     unsigned long wordCount();

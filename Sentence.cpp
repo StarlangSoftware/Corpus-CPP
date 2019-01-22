@@ -97,6 +97,15 @@ vector<Word*> Sentence::getWords() {
     return words;
 }
 
+vector<Word> Sentence::getWordList() {
+    vector<Word> wordList;
+    wordList.reserve(words.size());
+    for (auto &word : words) {
+        wordList.push_back(*word);
+    }
+    return wordList;
+}
+
 /**
  * The getStrings method loops through the words {@link vector} and adds each words' names to the newly created
  * {@link vector} result.
