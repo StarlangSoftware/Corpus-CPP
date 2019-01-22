@@ -100,7 +100,7 @@ vector<Word*> Sentence::getWords() {
 vector<Word> Sentence::getWordList() {
     vector<Word> wordList;
     wordList.reserve(words.size());
-    for (auto &word : words) {
+    for (Word* word : words) {
         wordList.push_back(*word);
     }
     return wordList;
