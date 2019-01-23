@@ -111,9 +111,8 @@ void Corpus::combine(Corpus corpus) {
  */
 void Corpus::addSentence(Sentence* s) {
     sentences.emplace_back(s);
-    vector<Word> words = s->getWordList();
-    for (Word w : words) {
-        wordList.put(w);
+    for (Word* word : s->getWords()) {
+        wordList.put(*word);
     }
 }
 
