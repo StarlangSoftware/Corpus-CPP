@@ -101,7 +101,7 @@ template<class K> int CounterHashMap<K>::sumOfCounts() {
  */
 template<class K> K CounterHashMap<K>::max() {
     int maxCount = 0;
-    K maxKey = nullptr;
+    K maxKey;
     for (auto item = this->begin(); item != this->end(); item++) {
         int count = item->second;
         if (count > maxCount) {
@@ -124,7 +124,7 @@ template<class K> K CounterHashMap<K>::max() {
  */
 template<class K> K CounterHashMap<K>::max(double threshold) {
     int maxCount = 0, total = 0;
-    K maxKey = nullptr;
+    K maxKey;
     for (auto item = this->begin(); item != this->end(); item++) {
         int count = item->second;
         total += count;
