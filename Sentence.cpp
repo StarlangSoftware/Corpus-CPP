@@ -51,8 +51,7 @@ Sentence::Sentence(ifstream file) {
  * @param sentence String input to parse.
  */
 Sentence::Sentence(string sentence) {
-    istringstream iss(sentence);
-    vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
+    vector<string> results = Word::split(sentence);
     for (const string &word : results) {
         if (!word.empty()) {
             words.emplace_back(new Word(word));
@@ -69,8 +68,7 @@ Sentence::Sentence(string sentence) {
  * @param languageChecker {@link LanguageChecker} type input.
  */
 Sentence::Sentence(string sentence, LanguageChecker* languageChecker) {
-    istringstream iss(sentence);
-    vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
+    vector<string> results = Word::split(sentence);
     for (const string &word : results) {
         if (!word.empty() && languageChecker->isValidWord(word)) {
             words.emplace_back(new Word(word));
