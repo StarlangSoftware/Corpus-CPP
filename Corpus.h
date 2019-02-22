@@ -22,7 +22,7 @@ public:
     Corpus();
     ~Corpus();
     Corpus emptyCopy();
-    Corpus(string fileName);
+    explicit Corpus(string fileName);
     Corpus(string fileName, SentenceSplitter sentenceSplitter);
     Corpus(string fileName, LanguageChecker* languageChecker);
     void combine(Corpus corpus);

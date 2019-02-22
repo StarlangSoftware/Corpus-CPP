@@ -14,8 +14,7 @@ using namespace std;
  * A constructor of {@link Corpus} class which creates new {@link ArrayList} for sentences and a {@link CounterHashMap}
  * for wordList.
  */
-Corpus::Corpus() {
-}
+Corpus::Corpus() = default;
 
 Corpus::~Corpus() {
     for (auto &sentence : sentences) {
