@@ -240,15 +240,6 @@ vector<vector<Word*>> Corpus::getAllWordsAsVector() {
     return allWords;
 }
 
-vector<Word>* Corpus::getAllWordsAsArray(){
-    vector<Word>* allWords;
-    allWords = new vector<Word>[sentenceCount()];
-    for (int i = 0; i < sentenceCount(); i++) {
-        allWords[i] = getSentence(i)->getWordList();
-    }
-    return allWords;
-}
-
 /**
  * The shuffleSentences method randomly shuffles sentences {@link ArrayList} with given seed value.
  *

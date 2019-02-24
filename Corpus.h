@@ -38,7 +38,6 @@ public:
     Sentence* getSentence(int index);
     int maxSentenceLength();
     vector<vector<Word*>> getAllWordsAsVector();
-    vector<Word>* getAllWordsAsArray();
     void shuffleSentences(int seed);
     Corpus getTrainCorpus(int foldNo, int foldCount);
     Corpus getTestCorpus(int foldNo, int foldCount);
