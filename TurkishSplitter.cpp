@@ -59,10 +59,10 @@ bool TurkishSplitter::listContains(string currentWord) {
  * @return true if next char is uppercase or digit, false otherwise.
  */
 bool TurkishSplitter::isNextCharUpperCaseOrDigit(string line, int i) {
-    while (i < line.size() && (line[i] == ' ' || contains(SEPARATORS, line[i]))) {
+    while (i < Word::size(line) && (line[i] == ' ' || contains(SEPARATORS, line[i]))) {
         i++;
     }
-    if (i == line.size() || contains(TurkishLanguage::UPPERCASE_LETTERS + TurkishLanguage::DIGITS + "-", line[i])) {
+    if (i == Word::size(line) || contains(TurkishLanguage::UPPERCASE_LETTERS + TurkishLanguage::DIGITS + "-", line[i])) {
         return true;
     } else {
         return false;
@@ -102,10 +102,10 @@ bool TurkishSplitter::isPreviousWordUpperCase(string line, int i) {
  * @return true if next char is uppercase, false otherwise.
  */
 bool TurkishSplitter::isNextCharUpperCase(string line, int i) {
-    while (i < line.size() && (line[i] == ' ')) {
+    while (i < Word::size(line) && (line[i] == ' ')) {
         i++;
     }
-    if (i == line.size() || contains(TurkishLanguage::UPPERCASE_LETTERS + "\"\'", line[i])) {
+    if (i == Word::size(line) || contains(TurkishLanguage::UPPERCASE_LETTERS + "\"\'", line[i])) {
         return true;
     } else {
         return false;
@@ -123,10 +123,10 @@ bool TurkishSplitter::isNextCharUpperCase(string line, int i) {
  * @return true if given input is a shortcut, false otherwise.
  */
 bool TurkishSplitter::isNameShortcut(string currentWord) {
-    if (currentWord.size() == 1 && TurkishLanguage::UPPERCASE_LETTERS.find_first_of(currentWord) != -1) {
+    if (Word::size(currentWord) == 1 && TurkishLanguage::UPPERCASE_LETTERS.find_first_of(currentWord) != -1) {
         return true;
     }
-    if (currentWord.size() == 3 && currentWord[1] == '.' && contains(TurkishLanguage::UPPERCASE_LETTERS, currentWord[2])) {
+    if (Word::size(currentWord) == 3 && currentWord[1] == '.' && contains(TurkishLanguage::UPPERCASE_LETTERS, currentWord[2])) {
         return true;
     }
     return false;
@@ -148,9 +148,9 @@ string TurkishSplitter::repeatControl(string word, bool exceptionMode) {
     }
     int i = 0;
     string result;
-    while (i < word.size()) {
-        if (i < word.size() - 2 && word[i] == word[i + 1] && word[i] == word[i + 2]) {
-            while (i < word.size() - 1 && word[i] == word[i + 1]) {
+    while (i < Word::size(word)) {
+        if (i < Word::size(word) - 2 && word[i] == word[i + 1] && word[i] == word[i + 2]) {
+            while (i < Word::size(word) - 1 && word[i] == word[i + 1]) {
                 i++;
             }
         }
@@ -191,7 +191,7 @@ bool TurkishSplitter::isApostrophe(string line, int i) {
  * @return true if previous char and next char is a digit, false otherwise.
  */
 bool TurkishSplitter::numberExistsBeforeAndAfter(string line, int i) {
-    if (i + 1 < line.size() && i > 0) {
+    if (i + 1 < Word::size(line) && i > 0) {
         char previousChar = line[i - 1];
         char nextChar = line[i + 1];
         return contains(TurkishLanguage::DIGITS, previousChar) && contains(TurkishLanguage::DIGITS, nextChar);
@@ -269,7 +269,7 @@ vector<Sentence> TurkishSplitter::split(string line) {
     Sentence currentSentence = Sentence();
     string currentWord;
     vector<Sentence> sentences;
-    while (i < line.size()) {
+    while (i < Word::size(line)) {
         if (contains(SEPARATORS, line[i])) {
             if (line[i] == '\'' && !currentWord.empty() && isApostrophe(line, i)) {
                 currentWord += line[i];
