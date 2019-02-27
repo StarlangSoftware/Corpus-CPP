@@ -30,6 +30,7 @@ public:
     static vector<string> split(string line, string separator);
     static vector<string> split(string line);
     static int size(string surfaceForm);
+    static string charAt(string surfaceForm, int index);
     bool isPunctuation();
     static bool isTime(string surfaceForm);
     static Word* toWordArray(string* sourceArray, int size);

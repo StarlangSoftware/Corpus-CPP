@@ -20,16 +20,17 @@ private:
     static const string CONSONANTS;
     static const string SERT_SESSIZ;
 public:
-    static bool isVowel(char ch);
-    static bool isBackVowel(char ch);
-    static bool isFrontVowel(char ch);
-    static bool isBackRoundedVowel(char ch);
-    static bool isFrontRoundedVowel(char ch);
-    static bool isBackUnroundedVowel(char ch);
-    static bool isFrontUnroundedVowel(char ch);
-    static bool isConsonantDrop(char ch);
-    static bool isConsonant(char ch);
-    static bool isSertSessiz(char ch);
+    static bool isVowel(const string &s);
+    static bool isBackVowel(const string &s);
+    static bool isFrontVowel(const string &s);
+    static bool isBackRoundedVowel(const string &s);
+    static bool isFrontRoundedVowel(const string &s);
+    static bool isBackUnroundedVowel(const string &s);
+    static bool isFrontUnroundedVowel(const string &s);
+    static bool isConsonantDrop(const string &s);
+    static bool isConsonant(const string &s);
+    static bool isSertSessiz(const string &s);
+    static bool isUppercase(const string &s);
     static const string LOWERCASE_LETTERS;
     static const string UPPERCASE_LETTERS ;
     static const string LETTERS;
@@ -55,8 +56,8 @@ const inline string TurkishLanguage::LETTERS = "abcçdefgğhıijklmnoöprsştuü
  * @param ch {@link char} input to check.
  * @return true if given character is a vowel.
  */
-inline bool TurkishLanguage::isVowel(char ch) {
-    return (VOWELS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isVowel(const string &s) {
+    return (VOWELS.find_first_of(s) != -1);
 }
 
 /**
@@ -65,8 +66,8 @@ inline bool TurkishLanguage::isVowel(char ch) {
  * @param ch {@link char} input to check.
  * @return true if given character is a back vowel.
  */
-inline bool TurkishLanguage::isBackVowel(char ch){
-    return (BACK_VOWELS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isBackVowel(const string &s){
+    return (BACK_VOWELS.find_first_of(s) != -1);
 }
 
 /**
@@ -75,8 +76,8 @@ inline bool TurkishLanguage::isBackVowel(char ch){
  * @param ch {@link char} input to check.
  * @return true if given character is a front vowel.
  */
-inline bool TurkishLanguage::isFrontVowel(char ch) {
-    return (FRONT_VOWELS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isFrontVowel(const string &s) {
+    return (FRONT_VOWELS.find_first_of(s) != -1);
 }
 
 /**
@@ -85,8 +86,8 @@ inline bool TurkishLanguage::isFrontVowel(char ch) {
  * @param ch {@link char} input to check.
  * @return true if given character is a back rounded vowel.
  */
-inline bool TurkishLanguage::isBackRoundedVowel(char ch) {
-    return (BACK_ROUNDED_VOWELS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isBackRoundedVowel(const string &s) {
+    return (BACK_ROUNDED_VOWELS.find_first_of(s) != -1);
 }
 
 /**
@@ -95,8 +96,8 @@ inline bool TurkishLanguage::isBackRoundedVowel(char ch) {
  * @param ch {@link char} input to check.
  * @return true if given character is a front rounded vowel.
  */
-inline bool TurkishLanguage::isFrontRoundedVowel(char ch) {
-    return (FRONT_ROUNDED_VOWELS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isFrontRoundedVowel(const string &s) {
+    return (FRONT_ROUNDED_VOWELS.find_first_of(s) != -1);
 }
 
 /**
@@ -105,8 +106,8 @@ inline bool TurkishLanguage::isFrontRoundedVowel(char ch) {
  * @param ch {@link char} input to check.
  * @return true if given character is a back unrounded vowel.
  */
-inline bool TurkishLanguage::isBackUnroundedVowel(char ch) {
-    return (BACK_UNROUNDED_VOWELS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isBackUnroundedVowel(const string &s) {
+    return (BACK_UNROUNDED_VOWELS.find_first_of(s) != -1);
 }
 
 /**
@@ -115,8 +116,8 @@ inline bool TurkishLanguage::isBackUnroundedVowel(char ch) {
  * @param ch {@link char} input to check.
  * @return true if given character is a front unrounded vowel.
  */
-inline bool TurkishLanguage::isFrontUnroundedVowel(char ch) {
-    return (FRONT_UNROUNDED_VOWELS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isFrontUnroundedVowel(const string &s) {
+    return (FRONT_UNROUNDED_VOWELS.find_first_of(s) != -1);
 }
 
 /**
@@ -125,8 +126,8 @@ inline bool TurkishLanguage::isFrontUnroundedVowel(char ch) {
  * @param ch {@link char} input to check.
  * @return true if given character is a dropping consonant.
  */
-inline bool TurkishLanguage::isConsonantDrop(char ch) {
-    return (CONSONANT_DROPS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isConsonantDrop(const string &s) {
+    return (CONSONANT_DROPS.find_first_of(s) != -1);
 }
 
 /**
@@ -135,8 +136,18 @@ inline bool TurkishLanguage::isConsonantDrop(char ch) {
  * @param ch {@link char} input to check.
  * @return true if given character is a consonant.
  */
-inline bool TurkishLanguage::isConsonant(char ch) {
-    return (CONSONANTS.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isConsonant(const string &s) {
+    return (CONSONANTS.find_first_of(s) != -1);
+}
+
+/**
+ * The isUppercase method takes a character as an input and returns true if given character is uppercase.
+ *
+ * @param ch {@link char} input to check.
+ * @return true if given character is uppercase.
+ */
+inline bool TurkishLanguage::isUppercase(const string &s) {
+    return (UPPERCASE_LETTERS.find_first_of(s) != -1);
 }
 
 /**
@@ -145,8 +156,8 @@ inline bool TurkishLanguage::isConsonant(char ch) {
  * @param ch {@link char} input to check.
  * @return true if given character is a sert sessiz.
  */
-inline bool TurkishLanguage::isSertSessiz(char ch) {
-    return (SERT_SESSIZ.find_first_of(ch) != -1);
+inline bool TurkishLanguage::isSertSessiz(const string &s) {
+    return (SERT_SESSIZ.find_first_of(s) != -1);
 }
 
 

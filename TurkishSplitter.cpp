@@ -18,6 +18,17 @@ bool TurkishSplitter::contains(string s, char character) {
 }
 
 /**
+ * The contains method takes a String and a char input then check the given String contains the given char.
+ *
+ * @param s         String input to search for the char.
+ * @param character Char input to look for in String.
+ * @return true if char is found, false otherwise.
+ */
+bool TurkishSplitter::contains(string s, string character) {
+    return s.find_first_of(character) != -1;
+}
+
+/**
  * The listContains method has a String array shortcuts which holds the possible abbreviations that might end with a '.' but not a
  * sentence finisher word. It also takes a String as an input and loops through the shortcuts array and returns
  * true if given String has any matching item in the shortcuts array.
@@ -59,10 +70,10 @@ bool TurkishSplitter::listContains(string currentWord) {
  * @return true if next char is uppercase or digit, false otherwise.
  */
 bool TurkishSplitter::isNextCharUpperCaseOrDigit(string line, int i) {
-    while (i < Word::size(line) && (line[i] == ' ' || contains(SEPARATORS, line[i]))) {
+    while (i < Word::size(line) && (Word::charAt(line, i) == " " || contains(SEPARATORS, Word::charAt(line, i)))) {
         i++;
     }
-    if (i == Word::size(line) || contains(TurkishLanguage::UPPERCASE_LETTERS + TurkishLanguage::DIGITS + "-", line[i])) {
+    if (i == Word::size(line) || contains(TurkishLanguage::UPPERCASE_LETTERS + TurkishLanguage::DIGITS + "-", Word::charAt(line, i))) {
         return true;
     } else {
         return false;
@@ -81,10 +92,10 @@ bool TurkishSplitter::isNextCharUpperCaseOrDigit(string line, int i) {
  * @return true if previous char is uppercase or one of the QXW, false otherwise.
  */
 bool TurkishSplitter::isPreviousWordUpperCase(string line, int i) {
-    while (i >= 0 && (line[i] == ' ' || contains(TurkishLanguage::LOWERCASE_LETTERS + "qxw", line[i]))) {
+    while (i >= 0 && (Word::charAt(line, i) == " "  || contains(TurkishLanguage::LOWERCASE_LETTERS + "qxw", Word::charAt(line, i)))) {
         i--;
     }
-    if (i == -1 || contains(TurkishLanguage::UPPERCASE_LETTERS + "QWX", line[i])) {
+    if (i == -1 || contains(TurkishLanguage::UPPERCASE_LETTERS + "QWX", Word::charAt(line, i))) {
         return true;
     } else {
         return false;
@@ -102,10 +113,10 @@ bool TurkishSplitter::isPreviousWordUpperCase(string line, int i) {
  * @return true if next char is uppercase, false otherwise.
  */
 bool TurkishSplitter::isNextCharUpperCase(string line, int i) {
-    while (i < Word::size(line) && (line[i] == ' ')) {
+    while (i < Word::size(line) && Word::charAt(line, i) == " ") {
         i++;
     }
-    if (i == Word::size(line) || contains(TurkishLanguage::UPPERCASE_LETTERS + "\"\'", line[i])) {
+    if (i == Word::size(line) || contains(TurkishLanguage::UPPERCASE_LETTERS + "\"\'", Word::charAt(line, i))) {
         return true;
     } else {
         return false;
@@ -126,7 +137,7 @@ bool TurkishSplitter::isNameShortcut(string currentWord) {
     if (Word::size(currentWord) == 1 && TurkishLanguage::UPPERCASE_LETTERS.find_first_of(currentWord) != -1) {
         return true;
     }
-    if (Word::size(currentWord) == 3 && currentWord[1] == '.' && contains(TurkishLanguage::UPPERCASE_LETTERS, currentWord[2])) {
+    if (Word::size(currentWord) == 3 && Word::charAt(currentWord, 1) == "." && contains(TurkishLanguage::UPPERCASE_LETTERS, Word::charAt(currentWord, 2))) {
         return true;
     }
     return false;
@@ -149,12 +160,12 @@ string TurkishSplitter::repeatControl(string word, bool exceptionMode) {
     int i = 0;
     string result;
     while (i < Word::size(word)) {
-        if (i < Word::size(word) - 2 && word[i] == word[i + 1] && word[i] == word[i + 2]) {
-            while (i < Word::size(word) - 1 && word[i] == word[i + 1]) {
+        if (i < Word::size(word) - 2 && Word::charAt(word, i) == Word::charAt(word, i + 1) && Word::charAt(word, i) == Word::charAt(word, i + 2)) {
+            while (i < Word::size(word) - 1 && Word::charAt(word, i) == Word::charAt(word, i + 1)) {
                 i++;
             }
         }
-        result += word[i];
+        result += Word::charAt(word, i);
         i++;
     }
     return result;
@@ -173,8 +184,8 @@ string TurkishSplitter::repeatControl(string word, bool exceptionMode) {
 bool TurkishSplitter::isApostrophe(string line, int i) {
     string apostropheLetters = TurkishLanguage::LETTERS + TurkishLanguage::EXTENDED_LANGUAGE_CHARACTERS + TurkishLanguage::DIGITS;
     if (i + 1 < line.length()) {
-        char previousChar = line[i - 1];
-        char nextChar = line[i + 1];
+        string previousChar = Word::charAt(line, i - 1);
+        string nextChar = Word::charAt(line, i + 1);
         return contains(apostropheLetters, previousChar) && contains(apostropheLetters, nextChar);
     } else {
         return false;
@@ -192,8 +203,8 @@ bool TurkishSplitter::isApostrophe(string line, int i) {
  */
 bool TurkishSplitter::numberExistsBeforeAndAfter(string line, int i) {
     if (i + 1 < Word::size(line) && i > 0) {
-        char previousChar = line[i - 1];
-        char nextChar = line[i + 1];
+        string previousChar = Word::charAt(line, i - 1);
+        string nextChar = Word::charAt(line, i + 1);
         return contains(TurkishLanguage::DIGITS, previousChar) && contains(TurkishLanguage::DIGITS, nextChar);
     } else {
         return false;
@@ -211,9 +222,9 @@ bool TurkishSplitter::numberExistsBeforeAndAfter(string line, int i) {
  */
 bool TurkishSplitter::isTime(string line, int i) {
     if (i + 2 < line.length()) {
-        char previousChar = line[i - 1];
-        char nextChar = line[i + 1];
-        char twoNextChar = line[i + 2];
+        string previousChar = Word::charAt(line, i - 1);
+        string nextChar = Word::charAt(line, i + 1);
+        string twoNextChar = Word::charAt(line, i + 2);
         return contains(TurkishLanguage::DIGITS, previousChar) && contains(TurkishLanguage::DIGITS, nextChar) && contains(TurkishLanguage::DIGITS, twoNextChar);
     } else {
         return false;
@@ -270,77 +281,82 @@ vector<Sentence> TurkishSplitter::split(string line) {
     string currentWord;
     vector<Sentence> sentences;
     while (i < Word::size(line)) {
-        if (contains(SEPARATORS, line[i])) {
-            if (line[i] == '\'' && !currentWord.empty() && isApostrophe(line, i)) {
-                currentWord += line[i];
+        if (contains(SEPARATORS, Word::charAt(line, i))) {
+            if (Word::charAt(line, i) == "'" && !currentWord.empty() && isApostrophe(line, i)) {
+                currentWord += Word::charAt(line, i);
             } else {
                 if (!currentWord.empty()) {
                     currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                 }
-                currentSentence.addWord(new Word(string(1, line[i])));
+                currentSentence.addWord(new Word(Word::charAt(line, i)));
                 currentWord = "";
-                switch (line[i]) {
-                    case '{':
-                        curlyBracketCount++;
-                        break;
-                    case '}':
+                if (Word::charAt(line, i) == "{"){
+                    curlyBracketCount++;
+                } else {
+                    if (Word::charAt(line, i) == "}"){
                         curlyBracketCount--;
-                        break;
-                    case '(':
-                        roundParenthesisCount++;
-                        break;
-                    case ')':
-                        roundParenthesisCount--;
-                        break;
-                    case '[':
-                        bracketCount++;
-                        break;
-                    case ']':
-                        bracketCount--;
-                        break;
-                    case '"':
-                        quotaCount = 1 - quotaCount;
-                        break;
-                    case '\'':
-                        apostropheCount = 1 - apostropheCount;
-                        break;
+                    } else {
+                        if (Word::charAt(line, i) == "("){
+                            roundParenthesisCount++;
+                        } else {
+                            if (Word::charAt(line, i) == ")"){
+                                roundParenthesisCount--;
+                            } else {
+                                if (Word::charAt(line, i) == "["){
+                                    bracketCount++;
+                                } else {
+                                    if (Word::charAt(line, i) == "]"){
+                                        bracketCount--;
+                                    } else {
+                                        if (Word::charAt(line, i) == "\""){
+                                            quotaCount = 1 - quotaCount;
+                                        } else {
+                                            if (Word::charAt(line, i) == "'"){
+                                                apostropheCount = 1 - apostropheCount;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                if (line[i] == '"' && bracketCount == 0 && curlyBracketCount == 0 &&
+                if (Word::charAt(line, i) == "\"" && bracketCount == 0 && curlyBracketCount == 0 &&
                     roundParenthesisCount == 0 && quotaCount == 0 && isNextCharUpperCaseOrDigit(line, i + 1)) {
                     sentences.emplace_back(currentSentence);
                     currentSentence = Sentence();
                 }
             }
         } else {
-            if (contains(SENTENCE_ENDERS, line[i])) {
-                if (line[i] == '.' && currentWord == "www") {
+            if (contains(SENTENCE_ENDERS, Word::charAt(line, i))) {
+                if (Word::charAt(line, i) == "." && currentWord == "www") {
                     webMode = true;
                 }
-                if (line[i] == '.' && !currentWord.empty() && (webMode || emailMode || contains(TurkishLanguage::DIGITS, line[i - 1]))) {
-                    currentWord += line[i];
+                if (Word::charAt(line, i) == "." && !currentWord.empty() && (webMode || emailMode || contains(TurkishLanguage::DIGITS, Word::charAt(line, i - 1)))) {
+                    currentWord += Word::charAt(line, i);
                 } else {
-                    if (line[i] == '.' && (listContains(currentWord) || isNameShortcut(currentWord))) {
-                        currentWord += line[i];
+                    if (Word::charAt(line, i) == "." && (listContains(currentWord) || isNameShortcut(currentWord))) {
+                        currentWord += Word::charAt(line, i);
                         currentSentence.addWord(new Word(currentWord));
                         currentWord = "";
                     } else {
                         if (!currentWord.empty()) {
                             currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         }
-                        currentWord = line[i];
+                        currentWord = Word::charAt(line, i);
                         do {
                             i++;
-                        } while (i < line.length() && contains(SENTENCE_ENDERS, line[i]));
+                        } while (i < line.length() && contains(SENTENCE_ENDERS, Word::charAt(line, i)));
                         i--;
                         currentSentence.addWord(new Word(currentWord));
                         if (roundParenthesisCount == 0 && bracketCount == 0 && curlyBracketCount == 0 && quotaCount == 0) {
-                            if (i + 1 < line.length() && line[i + 1] == '\'' && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 2)) {
+                            if (i + 1 < line.length() && Word::charAt(line, i + 1) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 2)) {
                                 currentSentence.addWord(new Word("'"));
                                 i++;
                                 sentences.emplace_back(currentSentence);
                                 currentSentence = Sentence();
                             } else {
-                                if (i + 2 < line.length() && line[i + 1] == ' ' && line[i + 2] == '\'' && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 3)) {
+                                if (i + 2 < line.length() && Word::charAt(line, i + 1) == " " && Word::charAt(line, i + 2) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 3)) {
                                     currentSentence.addWord(new Word("'"));
                                     i += 2;
                                     sentences.emplace_back(currentSentence);
@@ -357,7 +373,7 @@ vector<Sentence> TurkishSplitter::split(string line) {
                     }
                 }
             } else {
-                if (line[i] == ' ') {
+                if (Word::charAt(line, i) == " ") {
                     emailMode = false;
                     webMode = false;
                     if (!currentWord.empty()) {
@@ -365,7 +381,7 @@ vector<Sentence> TurkishSplitter::split(string line) {
                         currentWord = "";
                     }
                 } else {
-                    if (line[i] == '-' && !webMode && roundParenthesisCount == 0 && isNextCharUpperCase(line, i + 1) && !isPreviousWordUpperCase(line, i - 1)) {
+                    if (Word::charAt(line, i) == "-" && !webMode && roundParenthesisCount == 0 && isNextCharUpperCase(line, i + 1) && !isPreviousWordUpperCase(line, i - 1)) {
                         if (!currentWord.empty() && TurkishLanguage::DIGITS.find_first_of(currentWord) == -1) {
                             currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         }
@@ -381,37 +397,37 @@ vector<Sentence> TurkishSplitter::split(string line) {
                         }
                         currentWord = "";
                     } else {
-                        if (contains(PUNCTUATION_CHARACTERS, line[i]) || contains(TurkishLanguage::ARITHMETIC_CHARACTERS, line[i])) {
-                            if (line[i] == ':' && (currentWord == "http" || currentWord == "https")) {
+                        if (contains(PUNCTUATION_CHARACTERS, Word::charAt(line, i)) || contains(TurkishLanguage::ARITHMETIC_CHARACTERS, Word::charAt(line, i))) {
+                            if (Word::charAt(line, i) == ":" && (currentWord == "http" || currentWord == "https")) {
                                 webMode = true;
                             }
                             if (webMode) {
-                                currentWord += line[i];
+                                currentWord += Word::charAt(line, i);
                             } else {
-                                if (line[i] == ',' && numberExistsBeforeAndAfter(line, i)) {
-                                    currentWord += line[i];
+                                if (Word::charAt(line, i) == "," && numberExistsBeforeAndAfter(line, i)) {
+                                    currentWord += Word::charAt(line, i);
                                 } else {
-                                    if (line[i] == ':' && isTime(line, i)) {
-                                        currentWord += line[i];
+                                    if (Word::charAt(line, i) == ":" && isTime(line, i)) {
+                                        currentWord += Word::charAt(line, i);
                                     } else {
-                                        if (line[i] == '-' && numberExistsBeforeAndAfter(line, i)) {
-                                            currentWord += line[i];
+                                        if (Word::charAt(line, i) == "-" && numberExistsBeforeAndAfter(line, i)) {
+                                            currentWord += Word::charAt(line, i);
                                         } else {
                                             if (!currentWord.empty()) {
                                                 currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                                             }
-                                            currentSentence.addWord(new Word(string(1, line[i])));
+                                            currentSentence.addWord(new Word(Word::charAt(line, i)));
                                             currentWord = "";
                                         }
                                     }
                                 }
                             }
                         } else {
-                            if (line[i] == '@') {
-                                currentWord += line[i];
+                            if (Word::charAt(line, i) == "@") {
+                                currentWord += Word::charAt(line, i);
                                 emailMode = true;
                             } else {
-                                currentWord += line[i];
+                                currentWord += Word::charAt(line, i);
                             }
                         }
                     }
