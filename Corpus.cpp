@@ -320,9 +320,9 @@ string Corpus::allSubStrings(Word word, int k) {
     if (word.getName().length() < k) {
         result += word.getName() + " </s>\n";
     } else {
-        result += word.getName().substr(0, k);
+        result += Word::substring(word.getName(), 0, k);
         for (int j = 1; j < word.charCount() - k + 1; j++) {
-            result += " " + word.getName().substr(j, k);
+            result += " " + Word::substring(word.getName(), j, k);
         }
         result += " </s>\n";
     }

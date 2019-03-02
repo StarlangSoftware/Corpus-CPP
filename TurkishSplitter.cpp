@@ -183,7 +183,7 @@ string TurkishSplitter::repeatControl(string word, bool exceptionMode) {
  */
 bool TurkishSplitter::isApostrophe(string line, int i) {
     string apostropheLetters = TurkishLanguage::LETTERS + TurkishLanguage::EXTENDED_LANGUAGE_CHARACTERS + TurkishLanguage::DIGITS;
-    if (i + 1 < line.length()) {
+    if (i + 1 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);
         return contains(apostropheLetters, previousChar) && contains(apostropheLetters, nextChar);
@@ -221,7 +221,7 @@ bool TurkishSplitter::numberExistsBeforeAndAfter(string line, int i) {
  * @return true if previous char, next char and two next chars are digit, false otherwise.
  */
 bool TurkishSplitter::isTime(string line, int i) {
-    if (i + 2 < line.length()) {
+    if (i + 2 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);
         string twoNextChar = Word::charAt(line, i + 2);
@@ -346,17 +346,17 @@ vector<Sentence> TurkishSplitter::split(string line) {
                         currentWord = Word::charAt(line, i);
                         do {
                             i++;
-                        } while (i < line.length() && contains(SENTENCE_ENDERS, Word::charAt(line, i)));
+                        } while (i < Word::size(line) && contains(SENTENCE_ENDERS, Word::charAt(line, i)));
                         i--;
                         currentSentence.addWord(new Word(currentWord));
                         if (roundParenthesisCount == 0 && bracketCount == 0 && curlyBracketCount == 0 && quotaCount == 0) {
-                            if (i + 1 < line.length() && Word::charAt(line, i + 1) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 2)) {
+                            if (i + 1 < Word::size(line) && Word::charAt(line, i + 1) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 2)) {
                                 currentSentence.addWord(new Word("'"));
                                 i++;
                                 sentences.emplace_back(currentSentence);
                                 currentSentence = Sentence();
                             } else {
-                                if (i + 2 < line.length() && Word::charAt(line, i + 1) == " " && Word::charAt(line, i + 2) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 3)) {
+                                if (i + 2 < Word::size(line) && Word::charAt(line, i + 1) == " " && Word::charAt(line, i + 2) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 3)) {
                                     currentSentence.addWord(new Word("'"));
                                     i += 2;
                                     sentences.emplace_back(currentSentence);
