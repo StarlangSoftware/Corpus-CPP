@@ -65,9 +65,11 @@ Corpus::Corpus(string fileName, SentenceSplitter sentenceSplitter) {
     while (inputStream.good()) {
         getline(inputStream, line);
         sentences = sentenceSplitter.split(line);
+        Paragraph paragraph;
         for (Sentence s : sentences) {
-            addSentence(&s);
+            paragraph.addSentence(&s);
         }
+        addParagraph(paragraph);
     }
 }
 
@@ -146,6 +148,7 @@ bool Corpus::contains(string word) {
  * @param p {@link Paragraph} type input to add sentences and wordList.
  */
 void Corpus::addParagraph(Paragraph p) {
+    paragraphs.emplace_back(p);
     for (int i = 0; i < p.sentenceCount(); i++){
         addSentence(p.getSentence(i));
     }
@@ -209,6 +212,25 @@ int Corpus::sentenceCount() {
  */
 Sentence* Corpus::getSentence(int index) {
     return sentences.at(index);
+}
+
+/**
+ * The paragraphCount method returns the size of the paragraphs {@link ArrayList}.
+ *
+ * @return the size of the paragraphs {@link ArrayList}.
+ */
+int Corpus::paragraphCount() {
+    return paragraphs.size();
+}
+
+/**
+ * Getter for getting a paragraph at given index.
+ *
+ * @param index to get paragraph from.
+ * @return the paragraph at given index.
+ */
+Paragraph Corpus::getParagraph(int index) {
+    return paragraphs.at(index);
 }
 
 /**
