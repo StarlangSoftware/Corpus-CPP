@@ -51,3 +51,35 @@ Result: The imported project is listed in the Project Explorer view and files ar
 
 After being done with the downloading and opening project, select **Build Project** option from **Build** menu. After compilation process, user can run CorpusTest.cpp .
 
+Detailed Description
+============
++ [Corpus](#corpus)
++ [TurkishSplitter](#turkishsplitter)
+
+## Corpus
+
+Bir derlemi hafızaya atmak için
+
+	a = Corpus("derlem.txt");
+
+Bu derlem eğer noktalarla bölünmüş fakat cümlelere bölünmemiş ise
+
+	Corpus(String fileName, SentenceSplitter sentenceSplitter)
+
+Bu derlemin içinde Türkçe dışında cümleler de varsa, onları elimine etmek için
+
+	Corpus(String fileName, LanguageChecker languageChecker)
+
+Derlemdeki cümle sayısı
+
+	int sentenceCount()
+
+Derlemdeki i. cümle ise
+
+	Sentence getSentence(int index)
+
+## TurkishSplitter
+
+Türkçe . kurallarına göre cümlelere ayırmak için TurkishSplitter sınıfı kullanılır.
+
+	ArrayList<Sentence> split(String line);
