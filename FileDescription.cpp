@@ -45,19 +45,19 @@ string FileDescription::getFileName(string thisPath, string extension) {
 
 string FileDescription::getFileName(string thisPath, int thisIndex) {
     char name[5];
-    snprintf(name, 4, "%04d", thisIndex);
+    snprintf(name, 5, "%04d", thisIndex);
     return thisPath + "/" + name + "." + extension;
 }
 
 string FileDescription::getFileName(string thisPath, int thisIndex, string extension) {
     char name[5];
-    snprintf(name, 4, "%04d", thisIndex);
+    snprintf(name, 5, "%04d", thisIndex);
     return thisPath + "/" + name + "." + extension;
 }
 
 string FileDescription::getRawFileName() {
     char name[5];
-    snprintf(name, 4, "%04d", index);
+    snprintf(name, 5, "%04d", index);
     string tmp = name;
     return tmp + "." + extension;
 }

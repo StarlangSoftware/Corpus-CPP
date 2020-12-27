@@ -274,21 +274,21 @@ bool TurkishSplitter::isTime(string line, int i) {
  * @param line String input to split.
  * @return sentences {@link ArrayList} which holds split line.
  */
-vector<Sentence> TurkishSplitter::split(string line) {
+vector<Sentence*> TurkishSplitter::split(string line) {
     bool emailMode = false, webMode = false;
     int i = 0, roundParenthesisCount = 0, bracketCount = 0, curlyBracketCount = 0, quotaCount = 0, apostropheCount = 0;
-    Sentence currentSentence = Sentence();
+    Sentence* currentSentence = new Sentence();
     string currentWord;
-    vector<Sentence> sentences;
+    vector<Sentence*> sentences;
     while (i < Word::size(line)) {
         if (contains(SEPARATORS, Word::charAt(line, i))) {
             if (Word::charAt(line, i) == "'" && !currentWord.empty() && isApostrophe(line, i)) {
                 currentWord += Word::charAt(line, i);
             } else {
                 if (!currentWord.empty()) {
-                    currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
+                    currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                 }
-                currentSentence.addWord(new Word(Word::charAt(line, i)));
+                currentSentence->addWord(new Word(Word::charAt(line, i)));
                 currentWord = "";
                 if (Word::charAt(line, i) == "{"){
                     curlyBracketCount++;
@@ -324,7 +324,7 @@ vector<Sentence> TurkishSplitter::split(string line) {
                 if (Word::charAt(line, i) == "\"" && bracketCount == 0 && curlyBracketCount == 0 &&
                     roundParenthesisCount == 0 && quotaCount == 0 && isNextCharUpperCaseOrDigit(line, i + 1)) {
                     sentences.emplace_back(currentSentence);
-                    currentSentence = Sentence();
+                    currentSentence = new Sentence();
                 }
             }
         } else {
@@ -337,34 +337,34 @@ vector<Sentence> TurkishSplitter::split(string line) {
                 } else {
                     if (Word::charAt(line, i) == "." && (listContains(currentWord) || isNameShortcut(currentWord))) {
                         currentWord += Word::charAt(line, i);
-                        currentSentence.addWord(new Word(currentWord));
+                        currentSentence->addWord(new Word(currentWord));
                         currentWord = "";
                     } else {
                         if (!currentWord.empty()) {
-                            currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
+                            currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         }
                         currentWord = Word::charAt(line, i);
                         do {
                             i++;
                         } while (i < Word::size(line) && contains(SENTENCE_ENDERS, Word::charAt(line, i)));
                         i--;
-                        currentSentence.addWord(new Word(currentWord));
+                        currentSentence->addWord(new Word(currentWord));
                         if (roundParenthesisCount == 0 && bracketCount == 0 && curlyBracketCount == 0 && quotaCount == 0) {
                             if (i + 1 < Word::size(line) && Word::charAt(line, i + 1) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 2)) {
-                                currentSentence.addWord(new Word("'"));
+                                currentSentence->addWord(new Word("'"));
                                 i++;
                                 sentences.emplace_back(currentSentence);
-                                currentSentence = Sentence();
+                                currentSentence = new Sentence();
                             } else {
                                 if (i + 2 < Word::size(line) && Word::charAt(line, i + 1) == " " && Word::charAt(line, i + 2) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 3)) {
-                                    currentSentence.addWord(new Word("'"));
+                                    currentSentence->addWord(new Word("'"));
                                     i += 2;
                                     sentences.emplace_back(currentSentence);
-                                    currentSentence = Sentence();
+                                    currentSentence = new Sentence();
                                 } else {
                                     if (isNextCharUpperCaseOrDigit(line, i + 1)) {
                                         sentences.emplace_back(currentSentence);
-                                        currentSentence = Sentence();
+                                        currentSentence = new Sentence();
                                     }
                                 }
                             }
@@ -377,23 +377,23 @@ vector<Sentence> TurkishSplitter::split(string line) {
                     emailMode = false;
                     webMode = false;
                     if (!currentWord.empty()) {
-                        currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
+                        currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         currentWord = "";
                     }
                 } else {
                     if (Word::charAt(line, i) == "-" && !webMode && roundParenthesisCount == 0 && isNextCharUpperCase(line, i + 1) && !isPreviousWordUpperCase(line, i - 1)) {
                         if (!currentWord.empty() && TurkishLanguage::DIGITS.find_first_of(currentWord) == -1) {
-                            currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
+                            currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         }
-                        if (currentSentence.wordCount() > 0) {
+                        if (currentSentence->wordCount() > 0) {
                             sentences.emplace_back(currentSentence);
                         }
-                        currentSentence = Sentence();
+                        currentSentence = new Sentence();
                         roundParenthesisCount = bracketCount = curlyBracketCount = quotaCount = 0;
                         if (!currentWord.empty() && regex_match(currentWord, regex("\\d+"))) {
-                            currentSentence.addWord(new Word(currentWord + " -"));
+                            currentSentence->addWord(new Word(currentWord + " -"));
                         } else {
-                            currentSentence.addWord(new Word("-"));
+                            currentSentence->addWord(new Word("-"));
                         }
                         currentWord = "";
                     } else {
@@ -414,9 +414,9 @@ vector<Sentence> TurkishSplitter::split(string line) {
                                             currentWord += Word::charAt(line, i);
                                         } else {
                                             if (!currentWord.empty()) {
-                                                currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
+                                                currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                                             }
-                                            currentSentence.addWord(new Word(Word::charAt(line, i)));
+                                            currentSentence->addWord(new Word(Word::charAt(line, i)));
                                             currentWord = "";
                                         }
                                     }
@@ -437,9 +437,9 @@ vector<Sentence> TurkishSplitter::split(string line) {
         i++;
     }
     if (!currentWord.empty()) {
-        currentSentence.addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
+        currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
     }
-    if (currentSentence.wordCount() > 0) {
+    if (currentSentence->wordCount() > 0) {
         sentences.emplace_back(currentSentence);
     }
     return sentences;

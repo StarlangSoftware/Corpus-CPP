@@ -21,7 +21,8 @@ private:
     bool isApostrophe(string line, int i);
     bool numberExistsBeforeAndAfter(string line, int i);
     bool isTime(string line, int i);
-    vector<Sentence> split(string line);
+public:
+    vector<Sentence*> split(string line);
 };
 
 

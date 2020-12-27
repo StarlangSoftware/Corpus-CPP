@@ -57,7 +57,7 @@ Corpus::Corpus(string fileName) {
  * @param sentenceSplitter {@link SentenceSplitter} type input.
  */
 Corpus::Corpus(string fileName, SentenceSplitter sentenceSplitter) {
-    vector<Sentence> sentences;
+    vector<Sentence*> sentences;
     int count = 0;
     string line;
     ifstream inputStream;
@@ -66,8 +66,8 @@ Corpus::Corpus(string fileName, SentenceSplitter sentenceSplitter) {
         getline(inputStream, line);
         sentences = sentenceSplitter.split(line);
         Paragraph paragraph;
-        for (Sentence s : sentences) {
-            paragraph.addSentence(&s);
+        for (Sentence* s : sentences) {
+            paragraph.addSentence(s);
         }
         addParagraph(paragraph);
     }
@@ -241,8 +241,8 @@ Paragraph Corpus::getParagraph(int index) {
 int Corpus::maxSentenceLength() {
     int maxLength = 0;
     for (Sentence* s : sentences) {
-        if (s->wordCount() + 1 > maxLength)
-            maxLength = s->wordCount() + 1;
+        if (s->wordCount() > maxLength)
+            maxLength = s->wordCount();
     }
     return maxLength;
 }
