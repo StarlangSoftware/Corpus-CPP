@@ -45,4 +45,38 @@ Result: The imported project is listed in the Project Explorer view and files ar
 
 **From IDE**
 
-After being done with the downloading and opening project, select **Build Project** option from **Build** menu. After compilation process, user can run CorpusTest.cpp .
+After being done with the downloading and opening project, select **Build Project** option from **Build** menu. After compilation process, user can run CorpusTest.cpp.
+
+Detailed Description
+============
+
++ [Corpus](#corpus)
++ [TurkishSplitter](#turkishsplitter)
+
+## Corpus
+
+To store a corpus in memory
+
+	a = Corpus("derlem.txt");
+
+If this corpus is split with dots but not in sentences
+
+	Corpus(String fileName, SentenceSplitter sentenceSplitter)
+
+To eliminate the non-Turkish sentences from the corpus
+
+	Corpus(String fileName, LanguageChecker languageChecker)
+
+The number of sentences in the corpus
+
+	int sentenceCount()
+
+To get ith sentence in the corpus
+
+	Sentence getSentence(int index)
+
+## TurkishSplitter
+
+TurkishSplitter class is used to split the text into sentences in accordance with the . rules of Turkish.
+
+	ArrayList<Sentence> split(String line);
