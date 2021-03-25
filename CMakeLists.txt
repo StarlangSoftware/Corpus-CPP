@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.12)
+project(Corpus)
+
+set(CMAKE_CXX_STANDARD 17)
+include_directories(include)
+link_directories(library)
+add_library(Corpus WordFormat.h LanguageChecker.h SentenceSplitter.h Sentence.cpp Sentence.h Paragraph.cpp Paragraph.h FileDescription.cpp FileDescription.h TurkishChecker.cpp TurkishChecker.h TurkishSplitter.cpp TurkishSplitter.h Corpus.cpp Corpus.h)
+target_link_libraries(Corpus Dictionary)
+add_executable(Test WordFormat.h LanguageChecker.h SentenceSplitter.h Sentence.cpp Sentence.h Paragraph.cpp Paragraph.h FileDescription.cpp FileDescription.h TurkishChecker.cpp TurkishChecker.h TurkishSplitter.cpp TurkishSplitter.h Corpus.cpp Corpus.h Test/SentenceTest.cpp Test/FileDescriptionTest.cpp Test/TurkishSplitterTest.cpp Test/CorpusTest.cpp)
+target_link_libraries(Test Dictionary)
