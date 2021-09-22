@@ -176,6 +176,17 @@ void Sentence::replaceWord(int i, Word* newWord) {
 }
 
 /**
+ * The insertWord method takes an index and a word as inputs. It inserts the word at given index to words
+ * {@link ArrayList}.
+ *
+ * @param i       index.
+ * @param newWord to add the words {@link ArrayList}.
+ */
+void Sentence::insertWord(int i, Word *newWord) {
+    words.insert(words.begin() + i, newWord);
+}
+
+/**
  * The safeIndex method takes an index as an input and checks whether this index is between 0 and the size of the words.
  *
  * @param index is used to check the safety.

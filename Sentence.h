@@ -27,6 +27,7 @@ public:
     int getIndex(Word* word);
     unsigned long wordCount();
     void addWord(Word* word);
+    void insertWord(int i, Word* word);
     int charCount();
     void replaceWord(int i, Word* newWord);
     bool safeIndex(int index);
