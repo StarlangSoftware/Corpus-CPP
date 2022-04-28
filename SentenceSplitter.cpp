@@ -169,7 +169,7 @@ string SentenceSplitter::repeatControl(string word, bool exceptionMode) {
  */
 bool SentenceSplitter::isApostrophe(string line, int i) {
     string apostropheLetters = upperCaseLetters() + lowerCaseLetters() + Language::EXTENDED_LANGUAGE_CHARACTERS + Language::DIGITS;
-    if (i + 1 < Word::size(line)) {
+    if (i > 0 && i + 1 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);
         return contains(apostropheLetters, previousChar) && contains(apostropheLetters, nextChar);
@@ -188,7 +188,7 @@ bool SentenceSplitter::isApostrophe(string line, int i) {
  * @return true if previous char and next char is a digit, false otherwise.
  */
 bool SentenceSplitter::numberExistsBeforeAndAfter(string line, int i) {
-    if (i + 1 < Word::size(line) && i > 0) {
+    if (i > 0 && i + 1 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);
         return contains(Language::DIGITS, previousChar) && contains(Language::DIGITS, nextChar);
@@ -207,7 +207,7 @@ bool SentenceSplitter::numberExistsBeforeAndAfter(string line, int i) {
  * @return true if previous char, next char and two next chars are digit, false otherwise.
  */
 bool SentenceSplitter::isTime(string line, int i) {
-    if (i + 2 < Word::size(line)) {
+    if (i > 0 && i + 2 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);
         string twoNextChar = Word::charAt(line, i + 2);

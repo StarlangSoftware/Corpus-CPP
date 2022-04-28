@@ -7,7 +7,7 @@
 
 TEST_CASE("TurkishSplitterTest-testSplit") {
     TurkishSplitter splitter = TurkishSplitter();
-    REQUIRE(14 == splitter.split("Cin Ali, bak! At. "
+    REQUIRE(14 == splitter.split(":Cin Ali, bak! At. "
                                     "Bak, Cin Ali, bak. "
                                     "Bu at. "
                                     "Baba, o atı bana al. "
