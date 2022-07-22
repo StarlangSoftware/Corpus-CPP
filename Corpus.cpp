@@ -56,7 +56,7 @@ Corpus::Corpus(string fileName) {
  * @param fileName         String file name input that will be read.
  * @param sentenceSplitter {@link SentenceSplitter} type input.
  */
-Corpus::Corpus(string fileName, SentenceSplitter sentenceSplitter) {
+Corpus::Corpus(string fileName, SentenceSplitter* sentenceSplitter) {
     vector<Sentence*> sentences;
     int count = 0;
     string line;
@@ -64,7 +64,7 @@ Corpus::Corpus(string fileName, SentenceSplitter sentenceSplitter) {
     inputStream.open(fileName, ifstream::in);
     while (inputStream.good()) {
         getline(inputStream, line);
-        sentences = sentenceSplitter.split(line);
+        sentences = sentenceSplitter->split(line);
         Paragraph paragraph;
         for (Sentence* s : sentences) {
             paragraph.addSentence(s);

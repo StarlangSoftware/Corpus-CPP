@@ -24,7 +24,7 @@ public:
     ~Corpus();
     Corpus emptyCopy();
     explicit Corpus(string fileName);
-    Corpus(string fileName, SentenceSplitter sentenceSplitter);
+    Corpus(string fileName, SentenceSplitter* sentenceSplitter);
     Corpus(string fileName, LanguageChecker* languageChecker);
     void combine(Corpus corpus);
     void addSentence(Sentence* s);
