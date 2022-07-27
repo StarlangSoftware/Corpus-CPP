@@ -7,14 +7,7 @@
 /**
  * A constructor of {@link Paragraph} class which creates an {@link vector} sentences.
  */
-Paragraph::Paragraph() {
-}
-
-Paragraph::~Paragraph() {
-    for (auto& sentence : sentences){
-        delete sentence;
-    }
-}
+Paragraph::Paragraph() = default;
 
 /**
  * The addSentence method adds given sentence to sentences {@link vector}.

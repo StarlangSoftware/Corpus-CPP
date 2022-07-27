@@ -15,7 +15,6 @@ private:
     vector<Sentence*> sentences;
 public:
     Paragraph();
-    ~Paragraph();
     void addSentence(Sentence* s);
     int sentenceCount();
     Sentence* getSentence(unsigned long index);
