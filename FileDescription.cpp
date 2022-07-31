@@ -4,8 +4,8 @@
 #include "FileDescription.h"
 
 FileDescription::FileDescription(string path, string rawFileName) {
-    extension = rawFileName.substr(rawFileName.find_last_of('.') + 1);
-    index = stoi(rawFileName.substr(0, rawFileName.find_last_of('.')));
+    this->extension = rawFileName.substr(rawFileName.find_last_of('.') + 1);
+    this->index = stoi(rawFileName.substr(0, rawFileName.find_last_of('.')));
     this->path = move(path);
 }
 
