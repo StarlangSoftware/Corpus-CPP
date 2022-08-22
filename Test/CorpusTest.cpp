@@ -3,7 +3,7 @@
 //
 
 #include "catch.hpp"
-#include "../Corpus.h"
+#include "../src/Corpus.h"
 
 TEST_CASE("CorpusTest-testNumberOfWords") {
     Corpus corpus = Corpus("corpus.txt");

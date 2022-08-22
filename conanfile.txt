@@ -1,0 +1,6 @@
+[requires]
+Dictionary/1.0.0
+DataStructure/1.0.0
+
+[generators]
+cmake

@@ -3,7 +3,7 @@
 //
 
 #include "catch.hpp"
-#include "../EnglishSplitter.h"
+#include "../src/EnglishSplitter.h"
 
 TEST_CASE("EnglishSplitterTest-testSplit") {
     EnglishSplitter splitter = EnglishSplitter();

@@ -3,7 +3,7 @@
 //
 
 #include "catch.hpp"
-#include "../FileDescription.h"
+#include "../src/FileDescription.h"
 
 TEST_CASE("FileDescriptionTest-testGetIndex") {
     FileDescription fileDescription = FileDescription("mypath", "1234.train");

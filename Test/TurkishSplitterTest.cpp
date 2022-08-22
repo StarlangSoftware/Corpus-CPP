@@ -3,7 +3,7 @@
 //
 
 #include "catch.hpp"
-#include "../TurkishSplitter.h"
+#include "../src/TurkishSplitter.h"
 
 TEST_CASE("TurkishSplitterTest-testSplit") {
     TurkishSplitter splitter = TurkishSplitter();
