@@ -3,7 +3,7 @@
 //
 
 #include "TurkishSplitter.h"
-#include "TurkishLanguage.h"
+#include "Language/TurkishLanguage.h"
 
 string TurkishSplitter::upperCaseLetters() {
     return TurkishLanguage::UPPERCASE_LETTERS;

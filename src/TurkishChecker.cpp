@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include "TurkishChecker.h"
-#include "TurkishLanguage.h"
+#include "Language/TurkishLanguage.h"
 #include "SentenceSplitter.h"
 
 /**

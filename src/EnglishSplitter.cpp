@@ -3,7 +3,7 @@
 //
 
 #include "EnglishSplitter.h"
-#include "EnglishLanguage.h"
+#include "Language/EnglishLanguage.h"
 
 string EnglishSplitter::upperCaseLetters() {
     return EnglishLanguage::UPPERCASE_LETTERS;

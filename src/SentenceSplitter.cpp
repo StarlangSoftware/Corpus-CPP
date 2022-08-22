@@ -4,7 +4,7 @@
 
 #include <regex>
 #include "SentenceSplitter.h"
-#include "Language.h"
+#include "Language/Language.h"
 
 /**
  * The contains method takes a String and a char input then check the given String contains the given char.

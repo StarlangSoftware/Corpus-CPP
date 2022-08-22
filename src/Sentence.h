@@ -5,7 +5,7 @@
 #ifndef CORPUS_SENTENCE_H
 #define CORPUS_SENTENCE_H
 #include <vector>
-#include <Word.h>
+#include "Dictionary/Word.h"
 #include "LanguageChecker.h"
 
 using namespace std;
