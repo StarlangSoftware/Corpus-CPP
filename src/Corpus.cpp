@@ -268,7 +268,7 @@ vector<vector<Word*>> Corpus::getAllWordsAsVector() {
  * @param seed value to randomize shuffling.
  */
 void Corpus::shuffleSentences(int seed) {
-    shuffle(sentences.begin(), sentences.end(), mt19937(seed));
+    shuffle(sentences.begin(), sentences.end(), default_random_engine (seed));
 }
 
 /**
