@@ -262,8 +262,8 @@ bool SentenceSplitter::isTime(string line, int i) {
  */
 vector<Sentence*> SentenceSplitter::split(string line) {
     bool emailMode = false, webMode = false;
-    int i = 0, roundParenthesisCount = 0, bracketCount = 0, curlyBracketCount = 0, quotaCount = 0, apostropheCount = 0;
-    Sentence* currentSentence = new Sentence();
+    int i = 0, specialQuotaCount = 0, roundParenthesisCount = 0, bracketCount = 0, curlyBracketCount = 0, quotaCount = 0, apostropheCount = 0;
+    auto* currentSentence = new Sentence();
     string currentWord;
     vector<Sentence*> sentences;
     while (i < Word::size(line)) {
@@ -284,23 +284,47 @@ vector<Sentence*> SentenceSplitter::split(string line) {
                     if (Word::charAt(line, i) == "}"){
                         curlyBracketCount--;
                     } else {
-                        if (Word::charAt(line, i) == "("){
-                            roundParenthesisCount++;
+                        if (Word::charAt(line, i) == "\uFF02"){
+                            specialQuotaCount++;
                         } else {
-                            if (Word::charAt(line, i) == ")"){
-                                roundParenthesisCount--;
+                            if (Word::charAt(line, i) == "\u05F4"){
+                                specialQuotaCount--;
                             } else {
-                                if (Word::charAt(line, i) == "["){
-                                    bracketCount++;
+                                if (Word::charAt(line, i) == "“"){
+                                    specialQuotaCount++;
                                 } else {
-                                    if (Word::charAt(line, i) == "]"){
-                                        bracketCount--;
+                                    if (Word::charAt(line, i) == "”"){
+                                        specialQuotaCount--;
                                     } else {
-                                        if (Word::charAt(line, i) == "\""){
-                                            quotaCount = 1 - quotaCount;
+                                        if (Word::charAt(line, i) == "‘"){
+                                            specialQuotaCount++;
                                         } else {
-                                            if (Word::charAt(line, i) == "'"){
-                                                apostropheCount = 1 - apostropheCount;
+                                            if (Word::charAt(line, i) == "‘"){
+                                                specialQuotaCount--;
+                                            } else {
+                                                if (Word::charAt(line, i) == "("){
+                                                    roundParenthesisCount++;
+                                                } else {
+                                                    if (Word::charAt(line, i) == ")"){
+                                                        roundParenthesisCount--;
+                                                    } else {
+                                                        if (Word::charAt(line, i) == "["){
+                                                            bracketCount++;
+                                                        } else {
+                                                            if (Word::charAt(line, i) == "]"){
+                                                                bracketCount--;
+                                                            } else {
+                                                                if (Word::charAt(line, i) == "\""){
+                                                                    quotaCount = 1 - quotaCount;
+                                                                } else {
+                                                                    if (Word::charAt(line, i) == "'"){
+                                                                        apostropheCount = 1 - apostropheCount;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -309,7 +333,7 @@ vector<Sentence*> SentenceSplitter::split(string line) {
                         }
                     }
                 }
-                if (Word::charAt(line, i) == "\"" && bracketCount == 0 && curlyBracketCount == 0 &&
+                if (Word::charAt(line, i) == "\"" && bracketCount == 0 && specialQuotaCount == 0 && curlyBracketCount == 0 &&
                     roundParenthesisCount == 0 && quotaCount == 0 && isNextCharUpperCaseOrDigit(line, i + 1)) {
                     sentences.emplace_back(currentSentence);
                     currentSentence = new Sentence();
@@ -317,11 +341,13 @@ vector<Sentence*> SentenceSplitter::split(string line) {
             }
         } else {
             if (contains(SENTENCE_ENDERS, Word::charAt(line, i))) {
-                if (Word::charAt(line, i) == "." && currentWord == "www") {
+                if (Word::charAt(line, i) == "." && Word::toLowerCase(currentWord) == "www") {
                     webMode = true;
                 }
                 if (Word::charAt(line, i) == "." && !currentWord.empty() && (webMode || emailMode || (contains(Language::DIGITS, Word::charAt(line, i - 1)) && !isNextCharUpperCaseOrDigit(line, i + 1)))) {
                     currentWord += Word::charAt(line, i);
+                    currentSentence->addWord(new Word(currentWord));
+                    currentWord = "";
                 } else {
                     if (Word::charAt(line, i) == "." && (listContains(currentWord) || isNameShortcut(currentWord))) {
                         currentWord += Word::charAt(line, i);
@@ -377,7 +403,11 @@ vector<Sentence*> SentenceSplitter::split(string line) {
                             sentences.emplace_back(currentSentence);
                         }
                         currentSentence = new Sentence();
-                        roundParenthesisCount = bracketCount = curlyBracketCount = quotaCount = 0;
+                        roundParenthesisCount = 0;
+                        bracketCount = 0;
+                        curlyBracketCount = 0;
+                        quotaCount = 0;
+                        specialQuotaCount = 0;
                         if (!currentWord.empty() && regex_match(currentWord, regex("\\d+"))) {
                             currentSentence->addWord(new Word(currentWord + " -"));
                         } else {
