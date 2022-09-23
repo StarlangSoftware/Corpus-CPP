@@ -49,3 +49,9 @@ TEST_CASE("TurkishSplitterTest-testSplit6") {
     REQUIRE(1 == splitter.split("Burada II. Murat ve I. Ahmet oyun oynadı").size());
     REQUIRE(8 == splitter.split("Burada II. Murat ve I. Ahmet oyun oynadı")[0]->wordCount());
 }
+
+TEST_CASE("TurkishSplitterTest-testSplit7") {
+    TurkishSplitter splitter = TurkishSplitter();
+    REQUIRE(1 == splitter.split("1.87 cm boyunda ve 84 kg ağırlığındaydı").size());
+    REQUIRE(7 == splitter.split("1.87 cm boyunda ve 84 kg ağırlığındaydı")[0]->wordCount());
+}

@@ -26,6 +26,7 @@ public:
     static const string SEPARATORS;
     static const string SENTENCE_ENDERS;
     static const string PUNCTUATION_CHARACTERS;
+    static const string APOSTROPHES;
     vector<Sentence*> split(string line);
 protected:
     virtual string upperCaseLetters() = 0;
@@ -36,5 +37,6 @@ protected:
 const inline string SentenceSplitter::SEPARATORS = "\n()[]{}\"'\u05F4\uFF02\u055B’”‘“–\u00AD\u200B\t&\u2009\u202F\uFEFF";
 const inline string SentenceSplitter::SENTENCE_ENDERS = ".?!…";
 const inline string SentenceSplitter::PUNCTUATION_CHARACTERS = ",:;‚";
+const inline string SentenceSplitter::APOSTROPHES = "'’‘\u055B";
 
 #endif //CORPUS_SENTENCESPLITTER_H

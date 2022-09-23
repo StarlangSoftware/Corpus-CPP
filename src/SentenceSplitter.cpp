@@ -268,7 +268,7 @@ vector<Sentence*> SentenceSplitter::split(string line) {
     vector<Sentence*> sentences;
     while (i < Word::size(line)) {
         if (contains(SEPARATORS, Word::charAt(line, i))) {
-            if (Word::charAt(line, i) == "'" && !currentWord.empty() && isApostrophe(line, i)) {
+            if (contains(APOSTROPHES, Word::charAt(line, i)) && !currentWord.empty() && isApostrophe(line, i)) {
                 currentWord += Word::charAt(line, i);
             } else {
                 if (!currentWord.empty()) {
@@ -354,31 +354,35 @@ vector<Sentence*> SentenceSplitter::split(string line) {
                         currentSentence->addWord(new Word(currentWord));
                         currentWord = "";
                     } else {
-                        if (!currentWord.empty()) {
-                            currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
-                        }
-                        currentWord = Word::charAt(line, i);
-                        do {
-                            i++;
-                        } while (i < Word::size(line) && contains(SENTENCE_ENDERS, Word::charAt(line, i)));
-                        i--;
-                        currentSentence->addWord(new Word(currentWord));
-                        if (roundParenthesisCount == 0 && bracketCount == 0 && curlyBracketCount == 0 && quotaCount == 0) {
-                            if (i + 1 < Word::size(line) && Word::charAt(line, i + 1) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 2)) {
-                                currentSentence->addWord(new Word("'"));
+                        if (Word::charAt(line, i) == "." && numberExistsBeforeAndAfter(line, i)){
+                            currentWord += Word::charAt(line, i);
+                        } else {
+                            if (!currentWord.empty()) {
+                                currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
+                            }
+                            currentWord = Word::charAt(line, i);
+                            do {
                                 i++;
-                                sentences.emplace_back(currentSentence);
-                                currentSentence = new Sentence();
-                            } else {
-                                if (i + 2 < Word::size(line) && Word::charAt(line, i + 1) == " " && Word::charAt(line, i + 2) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 3)) {
+                            } while (i < Word::size(line) && contains(SENTENCE_ENDERS, Word::charAt(line, i)));
+                            i--;
+                            currentSentence->addWord(new Word(currentWord));
+                            if (roundParenthesisCount == 0 && bracketCount == 0 && curlyBracketCount == 0 && quotaCount == 0) {
+                                if (i + 1 < Word::size(line) && Word::charAt(line, i + 1) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 2)) {
                                     currentSentence->addWord(new Word("'"));
-                                    i += 2;
+                                    i++;
                                     sentences.emplace_back(currentSentence);
                                     currentSentence = new Sentence();
                                 } else {
-                                    if (isNextCharUpperCaseOrDigit(line, i + 1)) {
+                                    if (i + 2 < Word::size(line) && Word::charAt(line, i + 1) == " " && Word::charAt(line, i + 2) == "'" && apostropheCount == 1 && isNextCharUpperCaseOrDigit(line, i + 3)) {
+                                        currentSentence->addWord(new Word("'"));
+                                        i += 2;
                                         sentences.emplace_back(currentSentence);
                                         currentSentence = new Sentence();
+                                    } else {
+                                        if (isNextCharUpperCaseOrDigit(line, i + 1)) {
+                                            sentences.emplace_back(currentSentence);
+                                            currentSentence = new Sentence();
+                                        }
                                     }
                                 }
                             }
