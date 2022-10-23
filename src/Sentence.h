@@ -17,9 +17,9 @@ public:
     Sentence();
     ~Sentence();
     Sentence clone();
-    Sentence(ifstream file);
-    Sentence(string sentence);
-    Sentence(string sentence, LanguageChecker* languageChecker);
+    explicit Sentence(ifstream file);
+    explicit Sentence(const string& sentence);
+    Sentence(const string& sentence, LanguageChecker* languageChecker);
     Word* getWord(int index);
     vector<Word*> getWords();
     vector<Word> getWordList();

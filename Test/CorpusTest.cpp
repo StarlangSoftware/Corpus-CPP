@@ -16,11 +16,11 @@ TEST_CASE("CorpusTest-testContains") {
     Corpus corpus = Corpus("corpus.txt");
     Corpus simpleCorpus = Corpus("simplecorpus.txt");
     REQUIRE_FALSE(!corpus.contains("atatürk"));
-    for (Word word : corpus.getWordList()){
+    for (const Word& word : corpus.getWordList()){
         REQUIRE_FALSE(!corpus.contains(word.getName()));
     }
     REQUIRE_FALSE(!simpleCorpus.contains("mehmet"));
-    for (Word word : simpleCorpus.getWordList()){
+    for (const Word& word : simpleCorpus.getWordList()){
         REQUIRE_FALSE(!simpleCorpus.contains(word.getName()));
     }
 }

@@ -9,7 +9,7 @@ using namespace std;
 
 class LanguageChecker {
 public:
-    virtual bool isValidWord(string word) = 0;
+    virtual bool isValidWord(const string& word) = 0;
 };
 
 

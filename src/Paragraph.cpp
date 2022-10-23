@@ -23,7 +23,7 @@ void Paragraph::addSentence(Sentence* s) {
  *
  * @return the size of the {@link vector} sentences.
  */
-int Paragraph::sentenceCount() {
+int Paragraph::sentenceCount() const{
     return (int) sentences.size();
 }
 
@@ -33,6 +33,6 @@ int Paragraph::sentenceCount() {
  * @param index used to get a sentence.
  * @return sentence at given index.
  */
-Sentence* Paragraph::getSentence(unsigned long index) {
+Sentence* Paragraph::getSentence(unsigned long index) const{
     return sentences.at(index);
 }

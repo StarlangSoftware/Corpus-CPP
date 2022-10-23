@@ -3,15 +3,15 @@
 //
 #include "FileDescription.h"
 
-FileDescription::FileDescription(string path, string rawFileName) {
+FileDescription::FileDescription(const string& path, const string& rawFileName) {
     this->extension = rawFileName.substr(rawFileName.find_last_of('.') + 1);
     this->index = stoi(rawFileName.substr(0, rawFileName.find_last_of('.')));
-    this->path = move(path);
+    this->path = path;
 }
 
-FileDescription::FileDescription(string path, string extension, int index) {
-    this->path = move(path);
-    this->extension = move(extension);
+FileDescription::FileDescription(const string& path, const string& extension, int index) {
+    this->path = path;
+    this->extension = extension;
     this->index = index;
 }
 
@@ -19,7 +19,7 @@ string FileDescription::getPath() {
     return path;
 }
 
-int FileDescription::getIndex() {
+int FileDescription::getIndex() const {
     return index;
 }
 
@@ -31,28 +31,28 @@ string FileDescription::getFileName() {
     return getFileName(path);
 }
 
-string FileDescription::getFileNameWithExtension(string extension) {
-    return getFileName(path, move(extension));
+string FileDescription::getFileNameWithExtension(const string& _extension) {
+    return getFileName(path, _extension);
 }
 
-string FileDescription::getFileName(string thisPath) {
-    return getFileName(move(thisPath), index);
+string FileDescription::getFileName(const string& thisPath) {
+    return getFileName(thisPath, index);
 }
 
-string FileDescription::getFileName(string thisPath, string extension) {
-    return getFileName(move(thisPath), index, move(extension));
+string FileDescription::getFileName(const string& thisPath, const string& _extension) {
+    return getFileName(thisPath, index, _extension);
 }
 
-string FileDescription::getFileName(string thisPath, int thisIndex) {
+string FileDescription::getFileName(const string& thisPath, int thisIndex) {
     char name[5];
     snprintf(name, 5, "%04d", thisIndex);
     return thisPath + "/" + name + "." + extension;
 }
 
-string FileDescription::getFileName(string thisPath, int thisIndex, string extension) {
+string FileDescription::getFileName(const string& thisPath, int thisIndex, const string& _extension) {
     char name[5];
     snprintf(name, 5, "%04d", thisIndex);
-    return thisPath + "/" + name + "." + extension;
+    return thisPath + "/" + name + "." + _extension;
 }
 
 string FileDescription::getRawFileName() {

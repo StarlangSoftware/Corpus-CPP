@@ -16,8 +16,8 @@ private:
 public:
     Paragraph();
     void addSentence(Sentence* s);
-    int sentenceCount();
-    Sentence* getSentence(unsigned long index);
+    int sentenceCount() const;
+    Sentence* getSentence(unsigned long index) const;
 };
 
 

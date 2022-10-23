@@ -23,18 +23,18 @@ public:
     Corpus();
     ~Corpus();
     Corpus emptyCopy();
-    explicit Corpus(string fileName);
-    Corpus(string fileName, SentenceSplitter* sentenceSplitter);
-    Corpus(string fileName, LanguageChecker* languageChecker);
-    void combine(Corpus corpus);
+    explicit Corpus(const string& fileName);
+    Corpus(const string& fileName, SentenceSplitter* sentenceSplitter);
+    Corpus(const string& fileName, LanguageChecker* languageChecker);
+    void combine(const Corpus& corpus);
     void addSentence(Sentence* s);
     int numberOfWords();
-    bool contains(string word);
-    void addParagraph(Paragraph p);
+    bool contains(const string& word);
+    void addParagraph(const Paragraph& p);
     string getFileName();
     vector<Word> getWordList();
     int wordCount();
-    int getCount(Word word);
+    int getCount(const Word& word);
     int sentenceCount();
     Sentence* getSentence(int index);
     int paragraphCount();
@@ -44,9 +44,9 @@ public:
     void shuffleSentences(int seed);
     Corpus getTrainCorpus(int foldNo, int foldCount);
     Corpus getTestCorpus(int foldNo, int foldCount);
-    void writeToFile(string fileName);
-    string allSubStrings(Word word, int k);
-    void writeToFile(string fileName, WordFormat format);
+    void writeToFile(const string& _fileName);
+    string allSubStrings(const Word& word, int k);
+    void writeToFile(const string& _fileName, WordFormat format);
 };
 
 

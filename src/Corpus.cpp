@@ -5,7 +5,6 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
-#include <cstdlib>
 #include <random>
 #include "Corpus.h"
 using namespace std;
@@ -37,10 +36,10 @@ Corpus Corpus::emptyCopy() {
  *
  * @param fileName String file name input that will be read.
  */
-Corpus::Corpus(string fileName) {
+Corpus::Corpus(const string& fileName) {
     ifstream inputStream;
     inputStream.open(fileName, ifstream::in);
-    this->fileName = move(fileName);
+    this->fileName = fileName;
     string line;
     while (inputStream.good()){
         getline(inputStream, line);
@@ -56,17 +55,16 @@ Corpus::Corpus(string fileName) {
  * @param fileName         String file name input that will be read.
  * @param sentenceSplitter {@link SentenceSplitter} type input.
  */
-Corpus::Corpus(string fileName, SentenceSplitter* sentenceSplitter) {
-    vector<Sentence*> sentences;
-    int count = 0;
+Corpus::Corpus(const string& fileName, SentenceSplitter* sentenceSplitter) {
+    vector<Sentence*> _sentences;
     string line;
     ifstream inputStream;
     inputStream.open(fileName, ifstream::in);
     while (inputStream.good()) {
         getline(inputStream, line);
-        sentences = sentenceSplitter->split(line);
+        _sentences = sentenceSplitter->split(line);
         Paragraph paragraph;
-        for (Sentence* s : sentences) {
+        for (Sentence* s : _sentences) {
             paragraph.addSentence(s);
         }
         addParagraph(paragraph);
@@ -81,13 +79,13 @@ Corpus::Corpus(string fileName, SentenceSplitter* sentenceSplitter) {
  * @param fileName        String file name input that will be read.
  * @param languageChecker {@link LanguageChecker} type input.
  */
-Corpus::Corpus(string fileName, LanguageChecker* languageChecker) {
+Corpus::Corpus(const string& fileName, LanguageChecker* languageChecker) {
     string line;
     ifstream inputStream;
     inputStream.open(fileName, ifstream::in);
     while (inputStream.good()) {
         getline(inputStream, line);
-        Sentence* s = new Sentence(line, languageChecker);
+        auto* s = new Sentence(line, languageChecker);
         addSentence(s);
     }
 }
@@ -97,7 +95,7 @@ Corpus::Corpus(string fileName, LanguageChecker* languageChecker) {
  *
  * @param corpus {@link Corpus} type input.
  */
-void Corpus::combine(Corpus corpus) {
+void Corpus::combine(const Corpus& corpus) {
     for (Sentence* sentence : corpus.sentences) {
         addSentence(sentence);
     }
@@ -137,8 +135,8 @@ int Corpus::numberOfWords() {
  * @param word String input to check.
  * @return true if wordList has the given word, false otherwise.
  */
-bool Corpus::contains(string word) {
-    return wordList.containsKey(Word(move(word)));
+bool Corpus::contains(const string& word) {
+    return wordList.containsKey(Word(word));
 }
 
 /**
@@ -147,7 +145,7 @@ bool Corpus::contains(string word) {
  *
  * @param p {@link Paragraph} type input to add sentences and wordList.
  */
-void Corpus::addParagraph(Paragraph p) {
+void Corpus::addParagraph(const Paragraph& p) {
     paragraphs.emplace_back(p);
     for (int i = 0; i < p.sentenceCount(); i++){
         addSentence(p.getSentence(i));
@@ -191,7 +189,7 @@ int Corpus::wordCount() {
  * @param word Word type input to check.
  * @return the count value of given word.
  */
-int Corpus::getCount(Word word) {
+int Corpus::getCount(const Word& word) {
     return wordList.count(word);
 }
 
@@ -316,11 +314,11 @@ Corpus Corpus::getTestCorpus(int foldNo, int foldCount) {
 /**
  * The writeToFile method takes a String file name input and writes sentence of sentences {@link ArrayList} into this file.
  *
- * @param fileName file to write the sentences.
+ * @param _fileName file to write the sentences.
  */
-void Corpus::writeToFile(string fileName) {
+void Corpus::writeToFile(const string& _fileName) {
     ofstream output;
-    output.open(fileName, ofstream :: out);
+    output.open(_fileName, ofstream :: out);
     for (Sentence* sentence : sentences) {
         output << sentence->to_string();
         output << "\n";
@@ -337,7 +335,7 @@ void Corpus::writeToFile(string fileName) {
  * @param k    Integer for substring length.
  * @return String result that has all substrings.
  */
-string Corpus::allSubStrings(Word word, int k) {
+string Corpus::allSubStrings(const Word& word, int k) {
     string result = "<s> ";
     if (word.getName().length() < k) {
         result += word.getName() + " </s>\n";
@@ -359,14 +357,13 @@ string Corpus::allSubStrings(Word word, int k) {
  * LETTER_3, it writes words to file as 3-Grams.
  * LETTER_4, it writes words to file as 4-Grams.
  *
- * @param fileName file to write the sentences.
+ * @param _fileName file to write the sentences.
  * @param format {@link WordFormat} type input indicates N-Gram output.
  */
-void Corpus::writeToFile(string fileName, WordFormat format) {
-    int k = 0;
+void Corpus::writeToFile(const string& _fileName, WordFormat format) {
     string result;
     ofstream output;
-    output.open(fileName, ofstream :: out);
+    output.open(_fileName, ofstream :: out);
     for (Sentence* sentence : sentences) {
         switch (format) {
             case WordFormat::SURFACE:

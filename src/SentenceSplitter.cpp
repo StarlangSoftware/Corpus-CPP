@@ -13,7 +13,7 @@
  * @param character Char input to look for in String.
  * @return true if char is found, false otherwise.
  */
-bool SentenceSplitter::contains(string s, char character) {
+bool SentenceSplitter::contains(const string& s, char character) {
     return s.find_first_of(character) != -1;
 }
 
@@ -24,7 +24,7 @@ bool SentenceSplitter::contains(string s, char character) {
  * @param character Char input to look for in String.
  * @return true if char is found, false otherwise.
  */
-bool SentenceSplitter::contains(string s, string character) {
+bool SentenceSplitter::contains(const string& s, const string& character) {
     return s.find_first_of(character) != -1;
 }
 
@@ -36,8 +36,8 @@ bool SentenceSplitter::contains(string s, string character) {
  * @param currentWord String input to check.
  * @return true if contains any abbreviations, false otherwise.
  */
-bool SentenceSplitter::listContains(string currentWord) {
-    for (string shortcut : shortCuts()) {
+bool SentenceSplitter::listContains(const string& currentWord) {
+    for (const string& shortcut : shortCuts()) {
         if (currentWord == shortcut) {
             return true;
         }
@@ -55,7 +55,7 @@ bool SentenceSplitter::listContains(string currentWord) {
  * @param i    int defining starting index.
  * @return true if next char is uppercase or digit, false otherwise.
  */
-bool SentenceSplitter::isNextCharUpperCaseOrDigit(string line, int i) {
+bool SentenceSplitter::isNextCharUpperCaseOrDigit(const string& line, int i) {
     while (i < Word::size(line) && (Word::charAt(line, i) == " " || contains(SEPARATORS, Word::charAt(line, i)))) {
         i++;
     }
@@ -77,7 +77,7 @@ bool SentenceSplitter::isNextCharUpperCaseOrDigit(string line, int i) {
  * @param i    int defining ending index.
  * @return true if previous char is uppercase or one of the QXW, false otherwise.
  */
-bool SentenceSplitter::isPreviousWordUpperCase(string line, int i) {
+bool SentenceSplitter::isPreviousWordUpperCase(const string& line, int i) {
     while (i >= 0 && (Word::charAt(line, i) == " "  || contains(lowerCaseLetters() + "qxw", Word::charAt(line, i)))) {
         i--;
     }
@@ -98,7 +98,7 @@ bool SentenceSplitter::isPreviousWordUpperCase(string line, int i) {
  * @param i    int defining starting index.
  * @return true if next char is uppercase, false otherwise.
  */
-bool SentenceSplitter::isNextCharUpperCase(string line, int i) {
+bool SentenceSplitter::isNextCharUpperCase(const string& line, int i) {
     while (i < Word::size(line) && Word::charAt(line, i) == " ") {
         i++;
     }
@@ -119,7 +119,7 @@ bool SentenceSplitter::isNextCharUpperCase(string line, int i) {
  * @param currentWord String input to check whether it is a shortcut.
  * @return true if given input is a shortcut, false otherwise.
  */
-bool SentenceSplitter::isNameShortcut(string currentWord) {
+bool SentenceSplitter::isNameShortcut(const string& currentWord) {
     if (Word::size(currentWord) == 1 && upperCaseLetters().find_first_of(currentWord) != -1) {
         return true;
     }
@@ -139,7 +139,7 @@ bool SentenceSplitter::isNameShortcut(string currentWord) {
  * @param exceptionMode boolean input for exceptional cases.
  * @return String result.
  */
-string SentenceSplitter::repeatControl(string word, bool exceptionMode) {
+string SentenceSplitter::repeatControl(const string& word, bool exceptionMode) {
     if (exceptionMode) {
         return word;
     }
@@ -167,7 +167,7 @@ string SentenceSplitter::repeatControl(string word, bool exceptionMode) {
  * @param i    index.
  * @return true if apostropheLetters contains previous char and next char, false otherwise.
  */
-bool SentenceSplitter::isApostrophe(string line, int i) {
+bool SentenceSplitter::isApostrophe(const string& line, int i) {
     string apostropheLetters = upperCaseLetters() + lowerCaseLetters() + Language::EXTENDED_LANGUAGE_CHARACTERS + Language::DIGITS;
     if (i > 0 && i + 1 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
@@ -187,7 +187,7 @@ bool SentenceSplitter::isApostrophe(string line, int i) {
  * @param i    index.
  * @return true if previous char and next char is a digit, false otherwise.
  */
-bool SentenceSplitter::numberExistsBeforeAndAfter(string line, int i) {
+bool SentenceSplitter::numberExistsBeforeAndAfter(const string& line, int i) {
     if (i > 0 && i + 1 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);
@@ -206,7 +206,7 @@ bool SentenceSplitter::numberExistsBeforeAndAfter(string line, int i) {
  * @param i    index.
  * @return true if previous char, next char and two next chars are digit, false otherwise.
  */
-bool SentenceSplitter::isTime(string line, int i) {
+bool SentenceSplitter::isTime(const string& line, int i) {
     if (i > 0 && i + 2 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);
@@ -260,7 +260,7 @@ bool SentenceSplitter::isTime(string line, int i) {
  * @param line String input to split.
  * @return sentences {@link ArrayList} which holds split line.
  */
-vector<Sentence*> SentenceSplitter::split(string line) {
+vector<Sentence*> SentenceSplitter::split(const string& line) {
     bool emailMode = false, webMode = false;
     int i = 0, specialQuotaCount = 0, roundParenthesisCount = 0, bracketCount = 0, curlyBracketCount = 0, quotaCount = 0, apostropheCount = 0;
     auto* currentSentence = new Sentence();

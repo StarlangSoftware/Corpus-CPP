@@ -13,17 +13,17 @@ private:
     string path, extension;
     int index;
 public:
-    FileDescription(string path, string rawFileName);
-    FileDescription(string path, string extension, int index);
+    FileDescription(const string& path, const string& rawFileName);
+    FileDescription(const string& path, const string& extension, int index);
     string getPath();
-    int getIndex();
+    int getIndex() const;
     string getExtension();
     string getFileName();
-    string getFileNameWithExtension(string extension);
-    string getFileName(string thisPath);
-    string getFileName(string thisPath, string extension);
-    string getFileName(string thisPath, int thisIndex);
-    string getFileName(string thisPath, int thisIndex, string extension);
+    string getFileNameWithExtension(const string& _extension);
+    string getFileName(const string& thisPath);
+    string getFileName(const string& thisPath, const string& _extension);
+    string getFileName(const string& thisPath, int thisIndex);
+    string getFileName(const string& thisPath, int thisIndex, const string& _extension);
     string getRawFileName();
     void addToIndex(int count);
 };

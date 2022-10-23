@@ -9,8 +9,7 @@
 /**
  * An empty constructor of {@link Sentence} class. Creates an {@link vector} of words.
  */
-Sentence::Sentence() {
-}
+Sentence::Sentence() = default;
 
 Sentence::~Sentence(){
     for (auto& word : words){
@@ -50,7 +49,7 @@ Sentence::Sentence(ifstream file) {
  *
  * @param sentence String input to parse.
  */
-Sentence::Sentence(string sentence) {
+Sentence::Sentence(const string& sentence) {
     vector<string> results = Word::split(sentence);
     for (const string &word : results) {
         if (!word.empty()) {
@@ -67,7 +66,7 @@ Sentence::Sentence(string sentence) {
  * @param sentence        String input.
  * @param languageChecker {@link LanguageChecker} type input.
  */
-Sentence::Sentence(string sentence, LanguageChecker* languageChecker) {
+Sentence::Sentence(const string& sentence, LanguageChecker* languageChecker) {
     vector<string> results = Word::split(sentence);
     for (const string &word : results) {
         if (!word.empty() && languageChecker->isValidWord(word)) {

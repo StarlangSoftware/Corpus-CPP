@@ -11,23 +11,23 @@ using namespace std;
 
 class SentenceSplitter {
 private:
-    bool contains(string s, char character);
-    bool contains(string s, string character);
-    bool listContains(string currentWord);
-    bool isNextCharUpperCaseOrDigit(string line, int i);
-    bool isPreviousWordUpperCase(string line, int i);
-    bool isNextCharUpperCase(string line, int i);
-    bool isNameShortcut(string currentWord);
-    string repeatControl(string word, bool exceptionMode);
-    bool isApostrophe(string line, int i);
-    bool numberExistsBeforeAndAfter(string line, int i);
-    bool isTime(string line, int i);
+    static bool contains(const string& s, char character);
+    static bool contains(const string& s, const string& character);
+    bool listContains(const string& currentWord);
+    bool isNextCharUpperCaseOrDigit(const string& line, int i);
+    bool isPreviousWordUpperCase(const string& line, int i);
+    bool isNextCharUpperCase(const string& line, int i);
+    bool isNameShortcut(const string& currentWord);
+    string repeatControl(const string& word, bool exceptionMode);
+    bool isApostrophe(const string& line, int i);
+    bool numberExistsBeforeAndAfter(const string& line, int i);
+    bool isTime(const string& line, int i);
 public:
     static const string SEPARATORS;
     static const string SENTENCE_ENDERS;
     static const string PUNCTUATION_CHARACTERS;
     static const string APOSTROPHES;
-    vector<Sentence*> split(string line);
+    vector<Sentence*> split(const string& line);
 protected:
     virtual string upperCaseLetters() = 0;
     virtual string lowerCaseLetters() = 0;

@@ -25,7 +25,7 @@
  * @param word String to check validity.
  * @return true if each char in word is valid, false otherwise.
  */
-bool TurkishChecker::isValidWord(string word) {
+bool TurkishChecker::isValidWord(const string& word) {
     string specialMeaningCharacters = "$\\_|@%#£§&><";
     string validCharacters =
             TurkishLanguage::LETTERS + TurkishLanguage::EXTENDED_LANGUAGE_CHARACTERS + TurkishLanguage::DIGITS +
