@@ -120,7 +120,7 @@ void Corpus::addSentence(Sentence* s) {
  *
  * @return size which holds the total number of words.
  */
-int Corpus::numberOfWords() {
+int Corpus::numberOfWords() const{
     int size = 0;
     for (Sentence* s : sentences) {
         size += s->wordCount();
@@ -135,7 +135,7 @@ int Corpus::numberOfWords() {
  * @param word String input to check.
  * @return true if wordList has the given word, false otherwise.
  */
-bool Corpus::contains(const string& word) {
+bool Corpus::contains(const string& word) const{
     return wordList.containsKey(Word(word));
 }
 
@@ -157,7 +157,7 @@ void Corpus::addParagraph(const Paragraph& p) {
  *
  * @return file name.
  */
-string Corpus::getFileName() {
+string Corpus::getFileName() const{
     return fileName;
 }
 
@@ -166,7 +166,7 @@ string Corpus::getFileName() {
  *
  * @return the keySet of wordList.
  */
-vector<Word> Corpus::getWordList() {
+vector<Word> Corpus::getWordList() const{
     vector<Word> result;
     for (auto &item : wordList) {
         result.emplace_back(item.first);
@@ -179,7 +179,7 @@ vector<Word> Corpus::getWordList() {
  *
  * @return the size of the wordList {@link CounterHashMap}.
  */
-int Corpus::wordCount() {
+int Corpus::wordCount() const{
     return wordList.size();
 }
 
@@ -189,7 +189,7 @@ int Corpus::wordCount() {
  * @param word Word type input to check.
  * @return the count value of given word.
  */
-int Corpus::getCount(const Word& word) {
+int Corpus::getCount(const Word& word) const{
     return wordList.count(word);
 }
 
@@ -198,7 +198,7 @@ int Corpus::getCount(const Word& word) {
  *
  * @return the size of the sentences {@link ArrayList}.
  */
-int Corpus::sentenceCount() {
+int Corpus::sentenceCount() const{
     return sentences.size();
 }
 
@@ -208,7 +208,7 @@ int Corpus::sentenceCount() {
  * @param index to get sentence from.
  * @return the sentence at given index.
  */
-Sentence* Corpus::getSentence(int index) {
+Sentence* Corpus::getSentence(int index) const{
     return sentences.at(index);
 }
 
@@ -217,7 +217,7 @@ Sentence* Corpus::getSentence(int index) {
  *
  * @return the size of the paragraphs {@link ArrayList}.
  */
-int Corpus::paragraphCount() {
+int Corpus::paragraphCount() const{
     return paragraphs.size();
 }
 
@@ -227,7 +227,7 @@ int Corpus::paragraphCount() {
  * @param index to get paragraph from.
  * @return the paragraph at given index.
  */
-Paragraph Corpus::getParagraph(int index) {
+Paragraph Corpus::getParagraph(int index) const{
     return paragraphs.at(index);
 }
 
@@ -236,7 +236,7 @@ Paragraph Corpus::getParagraph(int index) {
  *
  * @return maximum length.
  */
-int Corpus::maxSentenceLength() {
+int Corpus::maxSentenceLength() const{
     int maxLength = 0;
     for (Sentence* s : sentences) {
         if (s->wordCount() > maxLength)
@@ -251,7 +251,7 @@ int Corpus::maxSentenceLength() {
  *
  * @return newly created and populated {@link vector}.
  */
-vector<vector<Word*>> Corpus::getAllWordsAsVector() {
+vector<vector<Word*>> Corpus::getAllWordsAsVector() const{
     vector<vector<Word*>> allWords;
     allWords.reserve(sentenceCount());
     for (int i = 0; i < sentenceCount(); i++) {
@@ -280,7 +280,7 @@ void Corpus::shuffleSentences(int seed) {
  * @param foldCount Integer input for counting fold.
  * @return the newly created and populated Corpus.
  */
-Corpus Corpus::getTrainCorpus(int foldNo, int foldCount) {
+Corpus Corpus::getTrainCorpus(int foldNo, int foldCount){
     Corpus trainCorpus = emptyCopy();
     int N = sentenceCount();
     for (int i = 0; i < (foldNo * N) / foldCount; i++) {
@@ -335,7 +335,7 @@ void Corpus::writeToFile(const string& _fileName) {
  * @param k    Integer for substring length.
  * @return String result that has all substrings.
  */
-string Corpus::allSubStrings(const Word& word, int k) {
+string Corpus::allSubStrings(const Word& word, int k) const{
     string result = "<s> ";
     if (word.getName().length() < k) {
         result += word.getName() + " </s>\n";

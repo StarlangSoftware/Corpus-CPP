@@ -20,19 +20,19 @@ public:
     explicit Sentence(ifstream file);
     explicit Sentence(const string& sentence);
     Sentence(const string& sentence, LanguageChecker* languageChecker);
-    Word* getWord(int index);
-    vector<Word*> getWords();
-    vector<Word> getWordList();
-    vector<string> getStrings();
-    int getIndex(Word* word);
-    unsigned long wordCount();
+    Word* getWord(int index) const;
+    vector<Word*> getWords() const;
+    vector<Word> getWordList() const;
+    vector<string> getStrings() const;
+    int getIndex(Word* word) const;
+    unsigned long wordCount() const;
     void addWord(Word* word);
     void insertWord(int i, Word* word);
-    int charCount();
+    int charCount() const;
     void replaceWord(int i, Word* newWord);
-    bool safeIndex(int index);
-    string to_string();
-    string toWords();
+    bool safeIndex(int index) const;
+    string to_string() const;
+    string toWords() const;
     void writeToFile(ofstream file);
 
     /**

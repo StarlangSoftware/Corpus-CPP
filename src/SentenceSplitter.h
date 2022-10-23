@@ -18,10 +18,10 @@ private:
     bool isPreviousWordUpperCase(const string& line, int i);
     bool isNextCharUpperCase(const string& line, int i);
     bool isNameShortcut(const string& currentWord);
-    string repeatControl(const string& word, bool exceptionMode);
+    string repeatControl(const string& word, bool exceptionMode) const;
     bool isApostrophe(const string& line, int i);
-    bool numberExistsBeforeAndAfter(const string& line, int i);
-    bool isTime(const string& line, int i);
+    bool numberExistsBeforeAndAfter(const string& line, int i) const;
+    bool isTime(const string& line, int i) const;
 public:
     static const string SEPARATORS;
     static const string SENTENCE_ENDERS;

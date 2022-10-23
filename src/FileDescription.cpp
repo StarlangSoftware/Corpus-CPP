@@ -15,7 +15,7 @@ FileDescription::FileDescription(const string& path, const string& extension, in
     this->index = index;
 }
 
-string FileDescription::getPath() {
+string FileDescription::getPath() const{
     return path;
 }
 
@@ -23,39 +23,39 @@ int FileDescription::getIndex() const {
     return index;
 }
 
-string FileDescription::getExtension() {
+string FileDescription::getExtension() const{
     return extension;
 }
 
-string FileDescription::getFileName() {
+string FileDescription::getFileName() const{
     return getFileName(path);
 }
 
-string FileDescription::getFileNameWithExtension(const string& _extension) {
+string FileDescription::getFileNameWithExtension(const string& _extension) const{
     return getFileName(path, _extension);
 }
 
-string FileDescription::getFileName(const string& thisPath) {
+string FileDescription::getFileName(const string& thisPath) const{
     return getFileName(thisPath, index);
 }
 
-string FileDescription::getFileName(const string& thisPath, const string& _extension) {
+string FileDescription::getFileName(const string& thisPath, const string& _extension) const{
     return getFileName(thisPath, index, _extension);
 }
 
-string FileDescription::getFileName(const string& thisPath, int thisIndex) {
+string FileDescription::getFileName(const string& thisPath, int thisIndex) const{
     char name[5];
     snprintf(name, 5, "%04d", thisIndex);
     return thisPath + "/" + name + "." + extension;
 }
 
-string FileDescription::getFileName(const string& thisPath, int thisIndex, const string& _extension) {
+string FileDescription::getFileName(const string& thisPath, int thisIndex, const string& _extension) const{
     char name[5];
     snprintf(name, 5, "%04d", thisIndex);
     return thisPath + "/" + name + "." + _extension;
 }
 
-string FileDescription::getRawFileName() {
+string FileDescription::getRawFileName() const{
     char name[5];
     snprintf(name, 5, "%04d", index);
     string tmp = name;

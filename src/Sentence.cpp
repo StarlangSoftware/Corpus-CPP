@@ -81,7 +81,7 @@ Sentence::Sentence(const string& sentence, LanguageChecker* languageChecker) {
  * @param index is used to get the word.
  * @return the word in given index.
  */
-Word* Sentence::getWord(int index) {
+Word* Sentence::getWord(int index) const{
     return words.at(index);
 }
 
@@ -90,11 +90,11 @@ Word* Sentence::getWord(int index) {
  *
  * @return words vector.
  */
-vector<Word*> Sentence::getWords() {
+vector<Word*> Sentence::getWords() const{
     return words;
 }
 
-vector<Word> Sentence::getWordList() {
+vector<Word> Sentence::getWordList() const{
     vector<Word> wordList;
     for (Word* word : words) {
         wordList.push_back(*word);
@@ -108,7 +108,7 @@ vector<Word> Sentence::getWordList() {
  *
  * @return result Vector which holds names of the words.
  */
-vector<string> Sentence::getStrings() {
+vector<string> Sentence::getStrings() const{
     vector<string> result;
     for (Word* word : words) {
         result.emplace_back(word->getName());
@@ -122,7 +122,7 @@ vector<string> Sentence::getStrings() {
  * @param word Word type input to search for.
  * @return index of the found input, -1 if not found.
  */
-int Sentence::getIndex(Word* word) {
+int Sentence::getIndex(Word* word) const{
     int i = 0;
     for (Word* w : words) {
         if (w->getName() == word->getName())
@@ -137,7 +137,7 @@ int Sentence::getIndex(Word* word) {
  *
  * @return the size of the words {@link vector}.
  */
-unsigned long Sentence::wordCount() {
+unsigned long Sentence::wordCount() const{
     return words.size();
 }
 
@@ -155,7 +155,7 @@ void Sentence::addWord(Word* word) {
  *
  * @return sum of the chars.
  */
-int Sentence::charCount() {
+int Sentence::charCount() const{
     int sum = 0;
     for (Word* word : words)
         sum += word->charCount();
@@ -191,7 +191,7 @@ void Sentence::insertWord(int i, Word *newWord) {
  * @param index is used to check the safety.
  * @return true if an index is safe, false otherwise.
  */
-bool Sentence::safeIndex(int index) {
+bool Sentence::safeIndex(int index) const{
     return index >= 0 && index < words.size();
 }
 
@@ -200,7 +200,7 @@ bool Sentence::safeIndex(int index) {
  *
  * @return String result which has all the word in words {@link ArrayList}.
  */
-string Sentence::to_string() {
+string Sentence::to_string() const{
     if (!words.empty()) {
         string result = words.at(0)->to_string();
         for (int i = 1; i < words.size(); i++) {
@@ -218,7 +218,7 @@ string Sentence::to_string() {
  *
  * @return String result which has all the names of each item in words {@link ArrayList}.
  */
-string Sentence::toWords(){
+string Sentence::toWords() const{
     if (!words.empty()) {
         string result = words.at(0)->getName();
         for (int i = 1; i < words.size(); i++) {

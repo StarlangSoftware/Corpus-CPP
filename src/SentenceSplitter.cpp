@@ -36,7 +36,7 @@ bool SentenceSplitter::contains(const string& s, const string& character) {
  * @param currentWord String input to check.
  * @return true if contains any abbreviations, false otherwise.
  */
-bool SentenceSplitter::listContains(const string& currentWord) {
+bool SentenceSplitter::listContains(const string& currentWord){
     for (const string& shortcut : shortCuts()) {
         if (currentWord == shortcut) {
             return true;
@@ -55,7 +55,7 @@ bool SentenceSplitter::listContains(const string& currentWord) {
  * @param i    int defining starting index.
  * @return true if next char is uppercase or digit, false otherwise.
  */
-bool SentenceSplitter::isNextCharUpperCaseOrDigit(const string& line, int i) {
+bool SentenceSplitter::isNextCharUpperCaseOrDigit(const string& line, int i){
     while (i < Word::size(line) && (Word::charAt(line, i) == " " || contains(SEPARATORS, Word::charAt(line, i)))) {
         i++;
     }
@@ -77,7 +77,7 @@ bool SentenceSplitter::isNextCharUpperCaseOrDigit(const string& line, int i) {
  * @param i    int defining ending index.
  * @return true if previous char is uppercase or one of the QXW, false otherwise.
  */
-bool SentenceSplitter::isPreviousWordUpperCase(const string& line, int i) {
+bool SentenceSplitter::isPreviousWordUpperCase(const string& line, int i){
     while (i >= 0 && (Word::charAt(line, i) == " "  || contains(lowerCaseLetters() + "qxw", Word::charAt(line, i)))) {
         i--;
     }
@@ -139,7 +139,7 @@ bool SentenceSplitter::isNameShortcut(const string& currentWord) {
  * @param exceptionMode boolean input for exceptional cases.
  * @return String result.
  */
-string SentenceSplitter::repeatControl(const string& word, bool exceptionMode) {
+string SentenceSplitter::repeatControl(const string& word, bool exceptionMode) const{
     if (exceptionMode) {
         return word;
     }
@@ -187,7 +187,7 @@ bool SentenceSplitter::isApostrophe(const string& line, int i) {
  * @param i    index.
  * @return true if previous char and next char is a digit, false otherwise.
  */
-bool SentenceSplitter::numberExistsBeforeAndAfter(const string& line, int i) {
+bool SentenceSplitter::numberExistsBeforeAndAfter(const string& line, int i) const{
     if (i > 0 && i + 1 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);
@@ -206,7 +206,7 @@ bool SentenceSplitter::numberExistsBeforeAndAfter(const string& line, int i) {
  * @param i    index.
  * @return true if previous char, next char and two next chars are digit, false otherwise.
  */
-bool SentenceSplitter::isTime(const string& line, int i) {
+bool SentenceSplitter::isTime(const string& line, int i) const{
     if (i > 0 && i + 2 < Word::size(line)) {
         string previousChar = Word::charAt(line, i - 1);
         string nextChar = Word::charAt(line, i + 1);

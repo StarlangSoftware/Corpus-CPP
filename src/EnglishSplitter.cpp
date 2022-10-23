@@ -5,11 +5,11 @@
 #include "EnglishSplitter.h"
 #include "Language/EnglishLanguage.h"
 
-string EnglishSplitter::upperCaseLetters() {
+string EnglishSplitter::upperCaseLetters(){
     return EnglishLanguage::UPPERCASE_LETTERS;
 }
 
-string EnglishSplitter::lowerCaseLetters() {
+string EnglishSplitter::lowerCaseLetters(){
     return EnglishLanguage::LOWERCASE_LETTERS;
 }
 
