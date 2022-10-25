@@ -21,7 +21,6 @@ protected:
     string fileName;
 public:
     Corpus();
-    ~Corpus();
     Corpus emptyCopy();
     explicit Corpus(const string& fileName);
     Corpus(const string& fileName, SentenceSplitter* sentenceSplitter);

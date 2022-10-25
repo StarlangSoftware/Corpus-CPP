@@ -11,11 +11,6 @@
  */
 Sentence::Sentence() = default;
 
-Sentence::~Sentence(){
-    for (auto& word : words){
-        delete word;
-    }
-}
 /**
  * The overridden clone method which creates a new sentence and clone words to this sentence.
  *

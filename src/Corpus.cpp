@@ -15,12 +15,6 @@ using namespace std;
  */
 Corpus::Corpus() = default;
 
-Corpus::~Corpus() {
-    for (auto &sentence : sentences) {
-        delete sentence;
-    }
-}
-
 /**
  * The emptyCopy method returns new Corpus.
  *

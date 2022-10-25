@@ -15,7 +15,6 @@ protected:
     vector<Word*> words;
 public:
     Sentence();
-    ~Sentence();
     Sentence clone();
     explicit Sentence(ifstream file);
     explicit Sentence(const string& sentence);
