@@ -39,6 +39,7 @@ Corpus::Corpus(const string& fileName) {
         getline(inputStream, line);
         addSentence(new Sentence(line));
     }
+    inputStream.close();
 }
 
 /**
@@ -63,6 +64,7 @@ Corpus::Corpus(const string& fileName, SentenceSplitter* sentenceSplitter) {
         }
         addParagraph(paragraph);
     }
+    inputStream.close();
 }
 
 /**
@@ -82,6 +84,7 @@ Corpus::Corpus(const string& fileName, LanguageChecker* languageChecker) {
         auto* s = new Sentence(line, languageChecker);
         addSentence(s);
     }
+    inputStream.close();
 }
 
 /**
