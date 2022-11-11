@@ -15,6 +15,7 @@ private:
     ifstream inputStream;
     string fileName;
 public:
+    CorpusStream();
     explicit CorpusStream(const string& fileName);
     void open();
     void close();

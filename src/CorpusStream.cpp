@@ -38,3 +38,5 @@ vector<Sentence *> CorpusStream::getSentenceBatch(int lineCount){
     }
     return sentences;
 }
+
+CorpusStream::CorpusStream() = default;
