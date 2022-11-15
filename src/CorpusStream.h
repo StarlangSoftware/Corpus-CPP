@@ -7,19 +7,19 @@
 #include <fstream>
 #include <iostream>
 #include "Sentence.h"
+#include "AbstractCorpus.h"
 
 using namespace std;
 
-class CorpusStream {
+class CorpusStream : AbstractCorpus{
 private:
     ifstream inputStream;
-    string fileName;
 public:
     CorpusStream();
     explicit CorpusStream(const string& fileName);
-    void open();
-    void close();
-    Sentence* getSentence();
+    void open() override;
+    void close() override;
+    Sentence* getSentence() override;
     vector<Sentence*> getSentenceBatch(int lineCount);
 };
 

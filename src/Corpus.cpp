@@ -389,3 +389,20 @@ void Corpus::writeToFile(const string& _fileName, WordFormat format) {
     }
     output.close();
 }
+
+void Corpus::open() {
+    sentenceIndex = 0;
+}
+
+void Corpus::close() {
+    sentenceIndex = 0;
+}
+
+Sentence* Corpus::getSentence() {
+    int index = sentenceIndex;
+    if (sentenceIndex < sentences.size()){
+        sentenceIndex++;
+        return sentences[index];
+    }
+    return nullptr;
+}

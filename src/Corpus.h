@@ -12,13 +12,15 @@
 #include "SentenceSplitter.h"
 #include "Paragraph.h"
 #include "WordFormat.h"
+#include "AbstractCorpus.h"
 
-class Corpus {
+class Corpus : AbstractCorpus{
+private:
+    int sentenceIndex;
 protected:
     vector<Sentence*> sentences;
     vector<Paragraph> paragraphs;
     CounterHashMap<Word> wordList;
-    string fileName;
 public:
     Corpus();
     Corpus emptyCopy();
@@ -46,6 +48,9 @@ public:
     void writeToFile(const string& _fileName);
     string allSubStrings(const Word& word, int k) const;
     void writeToFile(const string& _fileName, WordFormat format);
+    void open() override;
+    void close() override;
+    Sentence* getSentence() override;
 };
 
 
