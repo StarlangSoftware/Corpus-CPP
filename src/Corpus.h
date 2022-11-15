@@ -14,7 +14,7 @@
 #include "WordFormat.h"
 #include "AbstractCorpus.h"
 
-class Corpus : AbstractCorpus{
+class Corpus : public AbstractCorpus{
 private:
     int sentenceIndex;
 protected:

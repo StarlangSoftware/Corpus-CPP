@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class CorpusStream : AbstractCorpus{
+class CorpusStream : public AbstractCorpus{
 private:
     ifstream inputStream;
 public:
