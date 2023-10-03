@@ -5,12 +5,12 @@
 #include "Paragraph.h"
 
 /**
- * A constructor of {@link Paragraph} class which creates an {@link vector} sentences.
+ * A constructor of Paragraph class which creates an vector sentences.
  */
 Paragraph::Paragraph() = default;
 
 /**
- * The addSentence method adds given sentence to sentences {@link vector}.
+ * The addSentence method adds given sentence to sentences vector.
  *
  * @param s Sentence type input to add sentences.
  */
@@ -19,16 +19,16 @@ void Paragraph::addSentence(Sentence* s) {
 }
 
 /**
- * The sentenceCount method finds the size of the {@link vector} sentences.
+ * The sentenceCount method finds the size of the vector sentences.
  *
- * @return the size of the {@link vector} sentences.
+ * @return the size of the vector sentences.
  */
 int Paragraph::sentenceCount() const{
     return (int) sentences.size();
 }
 
 /**
- * The getSentence method finds the sentence from sentences {@link ArrayList} at given index.
+ * The getSentence method finds the sentence from sentences ArrayList at given index.
  *
  * @param index used to get a sentence.
  * @return sentence at given index.

@@ -218,7 +218,7 @@ bool SentenceSplitter::isTime(const string& line, int i) const{
 }
 
 /**
- * The split method takes a String line as an input. Firstly it creates a new sentence as currentSentence a new {@link ArrayList}
+ * The split method takes a String line as an input. Firstly it creates a new sentence as currentSentence a new ArrayList
  * as sentences. Then loops till the end of the line and checks some conditions;
  * If the char at ith index is a separator;
  * <p>
@@ -258,7 +258,7 @@ bool SentenceSplitter::isTime(const string& line, int i) const{
  * {@literal @} : assign emailMode as true.
  *
  * @param line String input to split.
- * @return sentences {@link ArrayList} which holds split line.
+ * @return sentences ArrayList which holds split line.
  */
 vector<Sentence*> SentenceSplitter::split(const string& line) {
     bool emailMode = false, webMode = false;

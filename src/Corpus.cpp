@@ -10,7 +10,7 @@
 using namespace std;
 
 /**
- * A constructor of {@link Corpus} class which creates new {@link ArrayList} for sentences and a {@link CounterHashMap}
+ * A constructor of Corpus class which creates new ArrayList for sentences and a CounterHashMap
  * for wordList.
  */
 Corpus::Corpus() = default;
@@ -18,14 +18,14 @@ Corpus::Corpus() = default;
 /**
  * The emptyCopy method returns new Corpus.
  *
- * @return new {@link Corpus}.
+ * @return new Corpus.
  */
 Corpus Corpus::emptyCopy() {
     return Corpus();
 }
 
 /**
- * Another constructor of {@link Corpus} class which takes a file name as an input. Then reads the input file line by line
+ * Another constructor of Corpus class which takes a file name as an input. Then reads the input file line by line
  * and calls addSentence method with each read line.
  *
  * @param fileName String file name input that will be read.
@@ -43,12 +43,12 @@ Corpus::Corpus(const string& fileName) {
 }
 
 /**
- * Another constructor of {@link Corpus} class which takes {@link SentenceSplitter}  as an input besides the file name.
+ * Another constructor of Corpus class which takes SentenceSplitter  as an input besides the file name.
  * It reads input file line by line and calls the sentenceSplitter method with each line, then calls addSentence method
  * with each sentence.
  *
  * @param fileName         String file name input that will be read.
- * @param sentenceSplitter {@link SentenceSplitter} type input.
+ * @param sentenceSplitter SentenceSplitter type input.
  */
 Corpus::Corpus(const string& fileName, SentenceSplitter* sentenceSplitter) {
     vector<Sentence*> _sentences;
@@ -68,12 +68,12 @@ Corpus::Corpus(const string& fileName, SentenceSplitter* sentenceSplitter) {
 }
 
 /**
- * Another constructor of {@link Corpus} class which also takes languageChecker input besides file name input.
+ * Another constructor of Corpus class which also takes languageChecker input besides file name input.
  * It reads input file line by line and add each sentence also by using the languageChecker input which simply checks
  * the validity of the sentence.
  *
  * @param fileName        String file name input that will be read.
- * @param languageChecker {@link LanguageChecker} type input.
+ * @param languageChecker LanguageChecker type input.
  */
 Corpus::Corpus(const string& fileName, LanguageChecker* languageChecker) {
     string line;
@@ -88,9 +88,9 @@ Corpus::Corpus(const string& fileName, LanguageChecker* languageChecker) {
 }
 
 /**
- * The combine method takes a {@link Corpus} as an input and adds each sentence of sentences {@link ArrayList}.
+ * The combine method takes a Corpus as an input and adds each sentence of sentences ArrayList.
  *
- * @param corpus {@link Corpus} type input.
+ * @param corpus Corpus type input.
  */
 void Corpus::combine(const Corpus& corpus) {
     for (Sentence* sentence : corpus.sentences) {
@@ -99,11 +99,11 @@ void Corpus::combine(const Corpus& corpus) {
 }
 
 /**
- * The addSentence method takes a Sentence as an input. It adds given input to sentences {@link ArrayList} and loops
- * through the each word in sentence and puts these words into wordList {@link CounterHashMap}.
+ * The addSentence method takes a Sentence as an input. It adds given input to sentences ArrayList and loops
+ * through the each word in sentence and puts these words into wordList CounterHashMap.
  *
- * @param s Sentence type input that will be added to sentences {@link ArrayList} and its words will be added to wordList
- *          {@link CounterHashMap}.
+ * @param s Sentence type input that will be added to sentences ArrayList and its words will be added to wordList
+ *          CounterHashMap.
  */
 void Corpus::addSentence(Sentence* s) {
     sentences.emplace_back(s);
@@ -113,7 +113,7 @@ void Corpus::addSentence(Sentence* s) {
 }
 
 /**
- * The numberOfWords method loops through the sentences {@link ArrayList} and accumulates the number of words in sentence.
+ * The numberOfWords method loops through the sentences ArrayList and accumulates the number of words in sentence.
  *
  * @return size which holds the total number of words.
  */
@@ -126,7 +126,7 @@ int Corpus::numberOfWords() const{
 }
 
 /**
- * The contains method takes a String word as an input and checks whether wordList {@link CounterHashMap} has the
+ * The contains method takes a String word as an input and checks whether wordList CounterHashMap has the
  * given word and returns true if so, otherwise returns false.
  *
  * @param word String input to check.
@@ -137,10 +137,10 @@ bool Corpus::contains(const string& word) const{
 }
 
 /**
- * The addParagraph method takes a {@link Paragraph} type input. It gets the sentences in the given paragraph and
- * add these to the sentences {@link vector} and the words in the sentences to the wordList {@link CounterHashMap}.
+ * The addParagraph method takes a Paragraph type input. It gets the sentences in the given paragraph and
+ * add these to the sentences vector and the words in the sentences to the wordList CounterHashMap.
  *
- * @param p {@link Paragraph} type input to add sentences and wordList.
+ * @param p Paragraph type input to add sentences and wordList.
  */
 void Corpus::addParagraph(const Paragraph& p) {
     paragraphs.emplace_back(p);
@@ -172,9 +172,9 @@ vector<Word> Corpus::getWordList() const{
 }
 
 /**
- * The wordCount method returns the size of the wordList {@link CounterHashMap}.
+ * The wordCount method returns the size of the wordList CounterHashMap.
  *
- * @return the size of the wordList {@link CounterHashMap}.
+ * @return the size of the wordList CounterHashMap.
  */
 int Corpus::wordCount() const{
     return wordList.size();
@@ -191,9 +191,9 @@ int Corpus::getCount(const Word& word) const{
 }
 
 /**
- * The sentenceCount method returns the size of the sentences {@link ArrayList}.
+ * The sentenceCount method returns the size of the sentences ArrayList.
  *
- * @return the size of the sentences {@link ArrayList}.
+ * @return the size of the sentences ArrayList.
  */
 int Corpus::sentenceCount() const{
     return sentences.size();
@@ -210,9 +210,9 @@ Sentence* Corpus::getSentence(int index) const{
 }
 
 /**
- * The paragraphCount method returns the size of the paragraphs {@link ArrayList}.
+ * The paragraphCount method returns the size of the paragraphs ArrayList.
  *
- * @return the size of the paragraphs {@link ArrayList}.
+ * @return the size of the paragraphs ArrayList.
  */
 int Corpus::paragraphCount() const{
     return paragraphs.size();
@@ -243,10 +243,10 @@ int Corpus::maxSentenceLength() const{
 }
 
 /**
- * The getAllWordsAsVector method creates new {@link vector} of vectors and adds each word in each sentence of sentences
- * {@link vector} into new {@link vector}.
+ * The getAllWordsAsVector method creates new vector of vectors and adds each word in each sentence of sentences
+ * vector into new vector.
  *
- * @return newly created and populated {@link vector}.
+ * @return newly created and populated vector.
  */
 vector<vector<Word*>> Corpus::getAllWordsAsVector() const{
     vector<vector<Word*>> allWords;
@@ -258,7 +258,7 @@ vector<vector<Word*>> Corpus::getAllWordsAsVector() const{
 }
 
 /**
- * The shuffleSentences method randomly shuffles sentences {@link ArrayList} with given seed value.
+ * The shuffleSentences method randomly shuffles sentences ArrayList with given seed value.
  *
  * @param seed value to randomize shuffling.
  */
@@ -269,9 +269,9 @@ void Corpus::shuffleSentences(int seed) {
 /**
  * The getTrainCorpus method takes two integer inputs foldNo and foldCount for determining train data size and count of fold respectively.
  * Initially creates a new empty Corpus, then finds the sentenceCount as N. Then, starting from the index 0 it loops through
- * the index (foldNo * N) / foldCount and add each sentence of sentences {@link ArrayList} to new Corpus. Later on,
+ * the index (foldNo * N) / foldCount and add each sentence of sentences ArrayList to new Corpus. Later on,
  * starting from the index ((foldNo + 1) * N) / foldCount, it loops through the index N and add each sentence of
- * sentences {@link ArrayList} to new Corpus.
+ * sentences ArrayList to new Corpus.
  *
  * @param foldNo    Integer input for train set size.
  * @param foldCount Integer input for counting fold.
@@ -293,7 +293,7 @@ Corpus Corpus::getTrainCorpus(int foldNo, int foldCount){
  * The getTestCorpus method takes two integer inputs foldNo and foldCount for determining test data size and count of
  * fold respectively.. Initially creates a new empty Corpus, then finds the sentenceCount as N.
  * Then, starting from the index (foldNo * N) / foldCount it loops through the index ((foldNo + 1) * N) / foldCount and
- * add each sentence of sentences {@link ArrayList} to new Corpus.
+ * add each sentence of sentences ArrayList to new Corpus.
  *
  * @param foldNo    Integer input for test size.
  * @param foldCount Integer input counting fold.
@@ -309,7 +309,7 @@ Corpus Corpus::getTestCorpus(int foldNo, int foldCount) {
 }
 
 /**
- * The writeToFile method takes a String file name input and writes sentence of sentences {@link ArrayList} into this file.
+ * The writeToFile method takes a String file name input and writes sentence of sentences ArrayList into this file.
  *
  * @param _fileName file to write the sentences.
  */
@@ -347,15 +347,15 @@ string Corpus::allSubStrings(const Word& word, int k) const{
 }
 
 /**
- * An overloaded writeToFile method takes a String file name and {@link WordFormat} type format as inputs.
- * It writes sentence of sentences {@link ArrayList} into this file according to given format. There are 4 formats;
+ * An overloaded writeToFile method takes a String file name and WordFormat type format as inputs.
+ * It writes sentence of sentences ArrayList into this file according to given format. There are 4 formats;
  * SURFACE, it directly writes words to file
  * LETTER_2, it writes words to file as 2-Grams.
  * LETTER_3, it writes words to file as 3-Grams.
  * LETTER_4, it writes words to file as 4-Grams.
  *
  * @param _fileName file to write the sentences.
- * @param format {@link WordFormat} type input indicates N-Gram output.
+ * @param format WordFormat type input indicates N-Gram output.
  */
 void Corpus::writeToFile(const string& _fileName, WordFormat format) {
     string result;

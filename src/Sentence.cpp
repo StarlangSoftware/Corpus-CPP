@@ -7,7 +7,7 @@
 #include "Sentence.h"
 
 /**
- * An empty constructor of {@link Sentence} class. Creates an {@link vector} of words.
+ * An empty constructor of Sentence class. Creates an vector of words.
  */
 Sentence::Sentence() = default;
 
@@ -24,8 +24,8 @@ Sentence Sentence::clone() {
 }
 
 /**
- * Another constructor of {@link Sentence} class which takes a file as an input. It reads each word in the file
- * and adds to words {@link vector}.
+ * Another constructor of Sentence class which takes a file as an input. It reads each word in the file
+ * and adds to words vector.
  *
  * @param file input file to read words from.
  */
@@ -39,8 +39,8 @@ Sentence::Sentence(ifstream file) {
 }
 
 /**
- * Another constructor of {@link Sentence} class which takes a sentence String as an input. It parses the sentence by
- * " " and adds each word to the newly created {@link vector} words.
+ * Another constructor of Sentence class which takes a sentence String as an input. It parses the sentence by
+ * " " and adds each word to the newly created vector words.
  *
  * @param sentence String input to parse.
  */
@@ -54,12 +54,12 @@ Sentence::Sentence(const string& sentence) {
 }
 
 /**
- * Another constructor of {@link Sentence} class with two inputs; a String sentence and a {@link LanguageChecker}
+ * Another constructor of Sentence class with two inputs; a String sentence and a LanguageChecker
  * languageChecker. It parses a sentence by " " and then check the language considerations. If it is a valid word,
- * it adds this word to the newly created {@link vector} words.
+ * it adds this word to the newly created vector words.
  *
  * @param sentence        String input.
- * @param languageChecker {@link LanguageChecker} type input.
+ * @param languageChecker LanguageChecker type input.
  */
 Sentence::Sentence(const string& sentence, LanguageChecker* languageChecker) {
     vector<string> results = Word::split(sentence);
@@ -81,7 +81,7 @@ Word* Sentence::getWord(int index) const{
 }
 
 /**
- * The getWords method returns the {@link vector} words.
+ * The getWords method returns the vector words.
  *
  * @return words vector.
  */
@@ -98,8 +98,8 @@ vector<Word> Sentence::getWordList() const{
 }
 
 /**
- * The getStrings method loops through the words {@link vector} and adds each words' names to the newly created
- * {@link vector} result.
+ * The getStrings method loops through the words vector and adds each words' names to the newly created
+ * vector result.
  *
  * @return result Vector which holds names of the words.
  */
@@ -112,7 +112,7 @@ vector<string> Sentence::getStrings() const{
 }
 
 /**
- * The getIndex method takes a word as an input and finds the index of that word in the words {@link ArrayList} if it exists.
+ * The getIndex method takes a word as an input and finds the index of that word in the words ArrayList if it exists.
  *
  * @param word Word type input to search for.
  * @return index of the found input, -1 if not found.
@@ -128,25 +128,25 @@ int Sentence::getIndex(Word* word) const{
 }
 
 /**
- * The wordCount method finds the size of the words {@link vector}.
+ * The wordCount method finds the size of the words vector.
  *
- * @return the size of the words {@link vector}.
+ * @return the size of the words vector.
  */
 unsigned long Sentence::wordCount() const{
     return words.size();
 }
 
 /**
- * The addWord method takes a word as an input and adds this word to the words {@link vector}.
+ * The addWord method takes a word as an input and adds this word to the words vector.
  *
- * @param word Word to add words {@link vector}.
+ * @param word Word to add words vector.
  */
 void Sentence::addWord(Word* word) {
     words.emplace_back(word);
 }
 
 /**
- * The charCount method finds the total number of chars in each word of words {@link vector}.
+ * The charCount method finds the total number of chars in each word of words vector.
  *
  * @return sum of the chars.
  */
@@ -159,10 +159,10 @@ int Sentence::charCount() const{
 
 /**
  * The replaceWord method takes an index and a word as inputs. It removes the word at given index from words
- * {@link vector} and then adds the given word to given index of words.
+ * vector and then adds the given word to given index of words.
  *
  * @param i       index.
- * @param newWord to add the words {@link vector}.
+ * @param newWord to add the words vector.
  */
 void Sentence::replaceWord(int i, Word* newWord) {
     words.erase(words.begin() + i);
@@ -171,10 +171,10 @@ void Sentence::replaceWord(int i, Word* newWord) {
 
 /**
  * The insertWord method takes an index and a word as inputs. It inserts the word at given index to words
- * {@link ArrayList}.
+ * ArrayList.
  *
  * @param i       index.
- * @param newWord to add the words {@link ArrayList}.
+ * @param newWord to add the words ArrayList.
  */
 void Sentence::insertWord(int i, Word *newWord) {
     words.insert(words.begin() + i, newWord);
@@ -191,9 +191,9 @@ bool Sentence::safeIndex(int index) const{
 }
 
 /**
- * The overridden toString method returns an accumulated string of each word in words {@link ArrayList}.
+ * The overridden toString method returns an accumulated string of each word in words ArrayList.
  *
- * @return String result which has all the word in words {@link ArrayList}.
+ * @return String result which has all the word in words ArrayList.
  */
 string Sentence::to_string() const{
     if (!words.empty()) {
@@ -209,9 +209,9 @@ string Sentence::to_string() const{
 }
 
 /**
- * The toWords method returns an accumulated string of each word's names in words {@link ArrayList}.
+ * The toWords method returns an accumulated string of each word's names in words ArrayList.
  *
- * @return String result which has all the names of each item in words {@link ArrayList}.
+ * @return String result which has all the names of each item in words ArrayList.
  */
 string Sentence::toWords() const{
     if (!words.empty()) {
