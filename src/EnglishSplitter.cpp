@@ -5,14 +5,26 @@
 #include "EnglishSplitter.h"
 #include "Language/EnglishLanguage.h"
 
+/**
+ * Returns English UPPERCASE letters.
+ * @return English UPPERCASE letters.
+ */
 string EnglishSplitter::upperCaseLetters(){
     return EnglishLanguage::UPPERCASE_LETTERS;
 }
 
+/**
+ * Returns English lowercase letters.
+ * @return English lowercase letters.
+ */
 string EnglishSplitter::lowerCaseLetters(){
     return EnglishLanguage::LOWERCASE_LETTERS;
 }
 
+/**
+ * Returns shortcut words in English language.
+ * @return Shortcut words in English language.
+ */
 vector<string> EnglishSplitter::shortCuts(){
     vector<string> shortCuts;
     shortCuts.emplace_back("dr");

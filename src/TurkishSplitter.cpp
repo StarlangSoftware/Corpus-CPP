@@ -5,14 +5,26 @@
 #include "TurkishSplitter.h"
 #include "Language/TurkishLanguage.h"
 
+/**
+ * Returns Turkish UPPERCASE letters.
+ * @return Turkish UPPERCASE letters.
+ */
 string TurkishSplitter::upperCaseLetters() {
     return TurkishLanguage::UPPERCASE_LETTERS;
 }
 
+/**
+ * Returns Turkish lowercase letters.
+ * @return Turkish lowercase letters.
+ */
 string TurkishSplitter::lowerCaseLetters() {
     return TurkishLanguage::LOWERCASE_LETTERS;
 }
 
+/**
+ * Returns shortcut words in Turkish language.
+ * @return Shortcut words in Turkish language.
+ */
 vector<string> TurkishSplitter::shortCuts(){
     vector<string> shortCuts;
     shortCuts.emplace_back("alb");

@@ -390,14 +390,25 @@ void Corpus::writeToFile(const string& _fileName, WordFormat format) {
     output.close();
 }
 
+/**
+ * Implements open method in AbstractCorpus. Initializes sentence pointer to zero.
+ */
 void Corpus::open() {
     sentenceIndex = 0;
 }
 
+/**
+ * Implements close method in AbstractCorpus. Initializes sentence pointer to zero.
+ */
 void Corpus::close() {
     sentenceIndex = 0;
 }
 
+/**
+ * Implements getSentence method in AbstractCorpus. Returns next sentence in the sentences array list and increments
+ * sentence pointer. If there are no sentences to be read, returns null.
+ * @return Next sentence in the sentences array.
+ */
 Sentence* Corpus::getSentence() {
     int index = sentenceIndex;
     if (sentenceIndex < sentences.size()){
