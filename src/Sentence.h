@@ -15,7 +15,7 @@ protected:
     vector<Word*> words;
 public:
     Sentence();
-    Sentence clone();
+    Sentence clone() const;
     explicit Sentence(ifstream file);
     explicit Sentence(const string& sentence);
     Sentence(const string& sentence, LanguageChecker* languageChecker);
@@ -32,7 +32,7 @@ public:
     bool safeIndex(int index) const;
     string to_string() const;
     string toWords() const;
-    void writeToFile(ofstream file);
+    void writeToFile(ofstream file) const;
 
     /**
      * The == method takes a Sentence as an input. First compares the sizes of both {@link vector} words and words

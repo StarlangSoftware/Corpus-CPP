@@ -45,9 +45,9 @@ public:
     void shuffleSentences(int seed);
     Corpus getTrainCorpus(int foldNo, int foldCount);
     Corpus getTestCorpus(int foldNo, int foldCount);
-    void writeToFile(const string& _fileName);
+    void writeToFile(const string& _fileName) const;
     string allSubStrings(const Word& word, int k) const;
-    void writeToFile(const string& _fileName, WordFormat format);
+    void writeToFile(const string& _fileName, WordFormat format) const;
     void open() override;
     void close() override;
     Sentence* getSentence() override;

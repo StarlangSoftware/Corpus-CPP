@@ -313,7 +313,7 @@ Corpus Corpus::getTestCorpus(int foldNo, int foldCount) {
  *
  * @param _fileName file to write the sentences.
  */
-void Corpus::writeToFile(const string& _fileName) {
+void Corpus::writeToFile(const string& _fileName) const {
     ofstream output;
     output.open(_fileName, ofstream :: out);
     for (Sentence* sentence : sentences) {
@@ -357,7 +357,7 @@ string Corpus::allSubStrings(const Word& word, int k) const{
  * @param _fileName file to write the sentences.
  * @param format WordFormat type input indicates N-Gram output.
  */
-void Corpus::writeToFile(const string& _fileName, WordFormat format) {
+void Corpus::writeToFile(const string& _fileName, WordFormat format) const {
     string result;
     ofstream output;
     output.open(_fileName, ofstream :: out);

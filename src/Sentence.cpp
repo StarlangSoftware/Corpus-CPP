@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include "Sentence.h"
+#include "StringUtils.h"
 
 /**
  * An empty constructor of Sentence class. Creates an vector of words.
@@ -16,7 +17,7 @@ Sentence::Sentence() = default;
  *
  * @return Sentence type sentence.
  */
-Sentence Sentence::clone() {
+Sentence Sentence::clone() const {
     Sentence s = Sentence();
     for (Word* w : words)
         s.addWord(new Word(w->getName()));
@@ -45,7 +46,7 @@ Sentence::Sentence(ifstream file) {
  * @param sentence String input to parse.
  */
 Sentence::Sentence(const string& sentence) {
-    vector<string> results = Word::split(sentence);
+    vector<string> results = StringUtils::split(sentence);
     for (const string &word : results) {
         if (!word.empty()) {
             words.emplace_back(new Word(word));
@@ -62,7 +63,7 @@ Sentence::Sentence(const string& sentence) {
  * @param languageChecker LanguageChecker type input.
  */
 Sentence::Sentence(const string& sentence, LanguageChecker* languageChecker) {
-    vector<string> results = Word::split(sentence);
+    vector<string> results = StringUtils::split(sentence);
     for (const string &word : results) {
         if (!word.empty() && languageChecker->isValidWord(word)) {
             words.emplace_back(new Word(word));
@@ -231,7 +232,7 @@ string Sentence::toWords() const{
  *
  * @param file to write in.
  */
-void Sentence::writeToFile(ofstream file){
+void Sentence::writeToFile(ofstream file) const {
     file << to_string();
     file.close();
 }
