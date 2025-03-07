@@ -146,7 +146,8 @@ string SentenceSplitter::repeatControl(const string& word, bool exceptionMode) c
     int i = 0;
     string result;
     while (i < Word::size(word)) {
-        if (i < Word::size(word) - 2 && Word::charAt(word, i) == Word::charAt(word, i + 1) && Word::charAt(word, i) == Word::charAt(word, i + 2)) {
+        if (i < Word::size(word) - 2 && Word::charAt(word, i) == Word::charAt(word, i + 1)
+            && Word::charAt(word, i) == Word::charAt(word, i + 2) && Word::charAt(word, i) == Word::charAt(word, i + 3)) {
             while (i < Word::size(word) - 1 && Word::charAt(word, i) == Word::charAt(word, i + 1)) {
                 i++;
             }
@@ -218,6 +219,28 @@ bool SentenceSplitter::isTime(const string& line, int i) const{
 }
 
 /**
+ * The onlyOneLetterExistsBeforeOrAfter method takes a String line and an integer i as inputs. Then, it returns true if
+ * only one letter exists before or after the given index, false otherwise.
+ *
+ * @param line String input to check.
+ * @param i    index.
+ * @return true if only one letter exists before or after the given index, false otherwise.
+ */
+bool SentenceSplitter::onlyOneLetterExistsBeforeOrAfter(const string& line, int i){
+    if (i > 1 && i < line.length() - 2) {
+        return contains(PUNCTUATION_CHARACTERS, Word::charAt(line, i - 2)) || contains(SEPARATORS, Word::charAt(line, i - 2)) ||
+                Word::charAt(line, i - 2) == " " || (contains(SENTENCE_ENDERS, Word::charAt(line, i - 2)) || contains(PUNCTUATION_CHARACTERS, Word::charAt(line, i + 2)) ||
+                contains(SEPARATORS, Word::charAt(line, i + 2)) || Word::charAt(line, i + 2) == " ") || contains(SENTENCE_ENDERS, Word::charAt(line, i + 2));
+    } else {
+        if (i == 1 && contains(lowerCaseLetters(), Word::charAt(line, 0)) || contains(upperCaseLetters(), Word::charAt(line, 0))) {
+            return true;
+        } else {
+            return i == line.length() - 2 && contains(lowerCaseLetters(), Word::charAt(line, Word::size(line) - 1));
+        }
+    }
+}
+
+/**
  * The split method takes a String line as an input. Firstly it creates a new sentence as currentSentence a new ArrayList
  * as sentences. Then loops till the end of the line and checks some conditions;
  * If the char at ith index is a separator;
@@ -268,57 +291,61 @@ vector<Sentence*> SentenceSplitter::split(const string& line) {
     vector<Sentence*> sentences;
     while (i < Word::size(line)) {
         if (contains(SEPARATORS, Word::charAt(line, i))) {
-            if (contains(APOSTROPHES, Word::charAt(line, i)) && !currentWord.empty() && isApostrophe(line, i)) {
+            if (contains(HYPHENS, Word::charAt(line, i)) && onlyOneLetterExistsBeforeOrAfter(line, i)) {
                 currentWord += Word::charAt(line, i);
             } else {
-                if (!currentWord.empty()) {
-                    currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
-                }
-                if (Word::charAt(line, i) != "\n"){
-                    currentSentence->addWord(new Word(Word::charAt(line, i)));
-                }
-                currentWord = "";
-                if (Word::charAt(line, i) == "{"){
-                    curlyBracketCount++;
+                if (contains(APOSTROPHES, Word::charAt(line, i)) && !currentWord.empty() && isApostrophe(line, i)) {
+                    currentWord += Word::charAt(line, i);
                 } else {
-                    if (Word::charAt(line, i) == "}"){
-                        curlyBracketCount--;
+                    if (!currentWord.empty()) {
+                        currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
+                    }
+                    if (Word::charAt(line, i) != "\n"){
+                        currentSentence->addWord(new Word(Word::charAt(line, i)));
+                    }
+                    currentWord = "";
+                    if (Word::charAt(line, i) == "{"){
+                        curlyBracketCount++;
                     } else {
-                        if (Word::charAt(line, i) == "\uFF02"){
-                            specialQuotaCount++;
+                        if (Word::charAt(line, i) == "}"){
+                            curlyBracketCount--;
                         } else {
-                            if (Word::charAt(line, i) == "\u05F4"){
-                                specialQuotaCount--;
+                            if (Word::charAt(line, i) == "\uFF02"){
+                                specialQuotaCount++;
                             } else {
-                                if (Word::charAt(line, i) == "“"){
-                                    specialQuotaCount++;
+                                if (Word::charAt(line, i) == "\u05F4"){
+                                    specialQuotaCount--;
                                 } else {
-                                    if (Word::charAt(line, i) == "”"){
-                                        specialQuotaCount--;
+                                    if (Word::charAt(line, i) == "“"){
+                                        specialQuotaCount++;
                                     } else {
-                                        if (Word::charAt(line, i) == "‘"){
-                                            specialQuotaCount++;
+                                        if (Word::charAt(line, i) == "”"){
+                                            specialQuotaCount--;
                                         } else {
                                             if (Word::charAt(line, i) == "‘"){
-                                                specialQuotaCount--;
+                                                specialQuotaCount++;
                                             } else {
-                                                if (Word::charAt(line, i) == "("){
-                                                    roundParenthesisCount++;
+                                                if (Word::charAt(line, i) == "‘"){
+                                                    specialQuotaCount--;
                                                 } else {
-                                                    if (Word::charAt(line, i) == ")"){
-                                                        roundParenthesisCount--;
+                                                    if (Word::charAt(line, i) == "("){
+                                                        roundParenthesisCount++;
                                                     } else {
-                                                        if (Word::charAt(line, i) == "["){
-                                                            bracketCount++;
+                                                        if (Word::charAt(line, i) == ")"){
+                                                            roundParenthesisCount--;
                                                         } else {
-                                                            if (Word::charAt(line, i) == "]"){
-                                                                bracketCount--;
+                                                            if (Word::charAt(line, i) == "["){
+                                                                bracketCount++;
                                                             } else {
-                                                                if (Word::charAt(line, i) == "\""){
-                                                                    quotaCount = 1 - quotaCount;
+                                                                if (Word::charAt(line, i) == "]"){
+                                                                    bracketCount--;
                                                                 } else {
-                                                                    if (Word::charAt(line, i) == "'"){
-                                                                        apostropheCount = 1 - apostropheCount;
+                                                                    if (Word::charAt(line, i) == "\""){
+                                                                        quotaCount = 1 - quotaCount;
+                                                                    } else {
+                                                                        if (Word::charAt(line, i) == "'"){
+                                                                            apostropheCount = 1 - apostropheCount;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -332,11 +359,11 @@ vector<Sentence*> SentenceSplitter::split(const string& line) {
                             }
                         }
                     }
-                }
-                if (Word::charAt(line, i) == "\"" && bracketCount == 0 && specialQuotaCount == 0 && curlyBracketCount == 0 &&
-                    roundParenthesisCount == 0 && quotaCount == 0 && isNextCharUpperCaseOrDigit(line, i + 1)) {
-                    sentences.emplace_back(currentSentence);
-                    currentSentence = new Sentence();
+                    if (Word::charAt(line, i) == "\"" && bracketCount == 0 && specialQuotaCount == 0 && curlyBracketCount == 0 &&
+                        roundParenthesisCount == 0 && quotaCount == 0 && isNextCharUpperCaseOrDigit(line, i + 1)) {
+                        sentences.emplace_back(currentSentence);
+                        currentSentence = new Sentence();
+                        }
                 }
             }
         } else {
@@ -399,7 +426,7 @@ vector<Sentence*> SentenceSplitter::split(const string& line) {
                         currentWord = "";
                     }
                 } else {
-                    if (Word::charAt(line, i) == "-" && !webMode && roundParenthesisCount == 0 && isNextCharUpperCase(line, i + 1) && !isPreviousWordUpperCase(line, i - 1)) {
+                    if (contains(HYPHENS, Word::charAt(line, i)) && !webMode && roundParenthesisCount == 0 && isNextCharUpperCase(line, i + 1) && !isPreviousWordUpperCase(line, i - 1)) {
                         if (!currentWord.empty() && Language::DIGITS.find_first_of(currentWord) == -1) {
                             currentSentence->addWord(new Word(repeatControl(currentWord, webMode || emailMode)));
                         }

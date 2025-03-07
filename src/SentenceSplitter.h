@@ -22,11 +22,13 @@ private:
     bool isApostrophe(const string& line, int i);
     bool numberExistsBeforeAndAfter(const string& line, int i) const;
     bool isTime(const string& line, int i) const;
+    bool onlyOneLetterExistsBeforeOrAfter(const string& line, int i);
 public:
     static const string SEPARATORS;
     static const string SENTENCE_ENDERS;
     static const string PUNCTUATION_CHARACTERS;
     static const string APOSTROPHES;
+    static const string HYPHENS;
     vector<Sentence*> split(const string& line);
 protected:
     virtual string upperCaseLetters() = 0;
@@ -38,5 +40,6 @@ const inline string SentenceSplitter::SEPARATORS = "\n()[]{}\"'\u05F4\uFF02\u055
 const inline string SentenceSplitter::SENTENCE_ENDERS = ".?!…";
 const inline string SentenceSplitter::PUNCTUATION_CHARACTERS = ",:;‚";
 const inline string SentenceSplitter::APOSTROPHES = "'’‘\u055B";
+const inline string SentenceSplitter::HYPHENS = "-–—";
 
 #endif //CORPUS_SENTENCESPLITTER_H
