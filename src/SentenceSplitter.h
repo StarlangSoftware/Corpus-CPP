@@ -36,7 +36,7 @@ protected:
     virtual vector<string> shortCuts() = 0;
 };
 
-const inline string SentenceSplitter::SEPARATORS = "\n()[]{}\"'\u05F4\uFF02\u055B’”‘“–\u00AD\u200B\t&\u2009\u202F\uFEFF";
+const inline string SentenceSplitter::SEPARATORS = "\n()[]{}\"-–—\u00AD\u200B\t&\u2009\u202F\uFEFF'״՛’”‘";
 const inline string SentenceSplitter::SENTENCE_ENDERS = ".?!…";
 const inline string SentenceSplitter::PUNCTUATION_CHARACTERS = ",:;‚";
 const inline string SentenceSplitter::APOSTROPHES = "'’‘\u055B";

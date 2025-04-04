@@ -64,6 +64,8 @@ TEST_CASE("TurkishSplitterTest-testSplit8") {
 
 TEST_CASE("TurkishSplitterTest-testSplit9") {
     TurkishSplitter splitter = TurkishSplitter();
+    REQUIRE(1 == splitter.split("çöğüşıÇÖĞÜŞİ").size());
+    REQUIRE(1 == splitter.split("çöğüşıÇÖĞÜŞİ")[0]->wordCount());
     REQUIRE(1 == splitter.split("Bunun yanı sıra erkek t-shirt modellerini klasik giyim tarzına uyarlayarak kullanmak da mümkündür").size());
     REQUIRE(13 == splitter.split("Bunun yanı sıra erkek t-shirt modellerini klasik giyim tarzına uyarlayarak kullanmak da mümkündür")[0]->wordCount());
     REQUIRE(1 == splitter.split("USB-C, USB-A’ya göre çok daha yüksek hızlarda aktarım sağlayabilir").size());
