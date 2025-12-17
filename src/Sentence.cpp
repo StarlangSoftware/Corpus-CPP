@@ -92,6 +92,7 @@ vector<Word*> Sentence::getWords() const{
 
 vector<Word> Sentence::getWordList() const{
     vector<Word> wordList;
+    wordList.reserve(words.size());
     for (Word* word : words) {
         wordList.push_back(*word);
     }
@@ -106,6 +107,7 @@ vector<Word> Sentence::getWordList() const{
  */
 vector<string> Sentence::getStrings() const{
     vector<string> result;
+    result.reserve(words.size());
     for (Word* word : words) {
         result.emplace_back(word->getName());
     }
@@ -118,7 +120,7 @@ vector<string> Sentence::getStrings() const{
  * @param word Word type input to search for.
  * @return index of the found input, -1 if not found.
  */
-int Sentence::getIndex(Word* word) const{
+int Sentence::getIndex(const Word* word) const{
     int i = 0;
     for (Word* w : words) {
         if (w->getName() == word->getName())

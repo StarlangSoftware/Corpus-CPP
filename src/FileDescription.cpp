@@ -65,7 +65,7 @@ string FileDescription::getFileName() const{
 
 /**
  * Returns the filename with extension replaced with the given extension.
- * @param extension New extension
+ * @param _extension New extension
  * @return The filename with extension replaced with the given extension.
  */
 string FileDescription::getFileNameWithExtension(const string& _extension) const{
@@ -84,7 +84,7 @@ string FileDescription::getFileName(const string& thisPath) const{
 /**
  * Returns the filename with path and extensions are replaced with the given path and extension.
  * @param thisPath New path
- * @param extension New extension
+ * @param _extension New extension
  * @return The filename with path and extensions are replaced with the given path and extension.
  */
 string FileDescription::getFileName(const string& thisPath, const string& _extension) const{
@@ -107,7 +107,7 @@ string FileDescription::getFileName(const string& thisPath, int thisIndex) const
  * Returns the filename with path, index, and extension are replaced with the given path, index, and extension.
  * @param thisPath New path
  * @param thisIndex New Index
- * @param extension New extension
+ * @param _extension New extension
  * @return The filename with path, index, and extension are replaced with the given path, index, and extension.
  */
 string FileDescription::getFileName(const string& thisPath, int thisIndex, const string& _extension) const{

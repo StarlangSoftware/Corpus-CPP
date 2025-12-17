@@ -5,7 +5,6 @@
 #ifndef CORPUS_CORPUSSTREAM_H
 #define CORPUS_CORPUSSTREAM_H
 #include <fstream>
-#include <iostream>
 #include "Sentence.h"
 #include "AbstractCorpus.h"
 

@@ -24,7 +24,7 @@ void Paragraph::addSentence(Sentence* s) {
  * @return the size of the vector sentences.
  */
 int Paragraph::sentenceCount() const{
-    return (int) sentences.size();
+    return static_cast<int>(sentences.size());
 }
 
 /**

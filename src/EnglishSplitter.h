@@ -9,9 +9,9 @@
 
 class EnglishSplitter : public SentenceSplitter {
 protected:
-    string upperCaseLetters();
-    string lowerCaseLetters();
-    vector<string> shortCuts();
+    string upperCaseLetters() override;
+    string lowerCaseLetters() override;
+    vector<string> shortCuts() override;
 };
 
 

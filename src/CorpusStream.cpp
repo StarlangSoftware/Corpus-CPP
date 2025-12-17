@@ -33,8 +33,8 @@ void CorpusStream::close(){
  * @return Next read sentence from file buffer or null.
  */
 Sentence *CorpusStream::getSentence(){
-    string line;
     if (inputStream.good()){
+        string line;
         getline(inputStream, line);
         return new Sentence(line);
     }

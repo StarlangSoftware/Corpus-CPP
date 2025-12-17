@@ -15,16 +15,16 @@ private:
 public:
     FileDescription(const string& path, const string& rawFileName);
     FileDescription(const string& path, const string& extension, int index);
-    string getPath() const;
-    int getIndex() const;
-    string getExtension() const;
-    string getFileName() const;
-    string getFileNameWithExtension(const string& _extension) const;
-    string getFileName(const string& thisPath) const;
-    string getFileName(const string& thisPath, const string& _extension) const;
-    string getFileName(const string& thisPath, int thisIndex) const;
-    string getFileName(const string& thisPath, int thisIndex, const string& _extension) const;
-    string getRawFileName() const;
+    [[nodiscard]] string getPath() const;
+    [[nodiscard]] int getIndex() const;
+    [[nodiscard]] string getExtension() const;
+    [[nodiscard]] string getFileName() const;
+    [[nodiscard]] string getFileNameWithExtension(const string& _extension) const;
+    [[nodiscard]] string getFileName(const string& thisPath) const;
+    [[nodiscard]] string getFileName(const string& thisPath, const string& _extension) const;
+    [[nodiscard]] string getFileName(const string& thisPath, int thisIndex) const;
+    [[nodiscard]] string getFileName(const string& thisPath, int thisIndex, const string& _extension) const;
+    [[nodiscard]] string getRawFileName() const;
     void addToIndex(int count);
 };
 

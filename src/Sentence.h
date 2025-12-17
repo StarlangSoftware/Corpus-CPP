@@ -15,23 +15,23 @@ protected:
     vector<Word*> words;
 public:
     Sentence();
-    Sentence clone() const;
+    [[nodiscard]] Sentence clone() const;
     explicit Sentence(ifstream file);
     explicit Sentence(const string& sentence);
     Sentence(const string& sentence, LanguageChecker* languageChecker);
-    Word* getWord(int index) const;
-    vector<Word*> getWords() const;
-    vector<Word> getWordList() const;
-    vector<string> getStrings() const;
-    int getIndex(Word* word) const;
-    unsigned long wordCount() const;
+    [[nodiscard]] Word* getWord(int index) const;
+    [[nodiscard]] vector<Word*> getWords() const;
+    [[nodiscard]] vector<Word> getWordList() const;
+    [[nodiscard]] vector<string> getStrings() const;
+    int getIndex(const Word* word) const;
+    [[nodiscard]] unsigned long wordCount() const;
     void addWord(Word* word);
     void insertWord(int i, Word* word);
-    int charCount() const;
+    [[nodiscard]] int charCount() const;
     void replaceWord(int i, Word* newWord);
-    bool safeIndex(int index) const;
-    string to_string() const;
-    string toWords() const;
+    [[nodiscard]] bool safeIndex(int index) const;
+    [[nodiscard]] string to_string() const;
+    [[nodiscard]] string toWords() const;
     void writeToFile(ofstream file) const;
 
     /**
@@ -39,7 +39,7 @@ public:
      * of the Sentence input. If they are not equal then it returns false. Than it compares each word in the {@link vector}.
      * If they are equal, it returns true.
      *
-     * @param s Sentence to compare.
+     * @param anotherSentence Sentence to compare.
      * @return true if words of two sentences are equal.
      */
     bool operator==(const Sentence &anotherSentence) const{

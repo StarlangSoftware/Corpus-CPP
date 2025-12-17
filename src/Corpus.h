@@ -6,7 +6,6 @@
 #define CORPUS_CORPUS_H
 
 #include <vector>
-#include <unordered_set>
 #include "Sentence.h"
 #include "CounterHashMap.h"
 #include "SentenceSplitter.h"
@@ -29,24 +28,24 @@ public:
     Corpus(const string& fileName, LanguageChecker* languageChecker);
     void combine(const Corpus& corpus);
     void addSentence(Sentence* s);
-    int numberOfWords() const;
-    bool contains(const string& word) const;
+    [[nodiscard]] int numberOfWords() const;
+    [[nodiscard]] bool contains(const string& word) const;
     void addParagraph(const Paragraph& p);
-    string getFileName() const;
-    vector<Word> getWordList() const;
-    int wordCount() const;
-    int getCount(const Word& word) const;
-    int sentenceCount() const;
-    Sentence* getSentence(int index) const;
-    int paragraphCount() const;
-    Paragraph getParagraph(int index) const;
-    int maxSentenceLength() const;
-    vector<vector<Word*>> getAllWordsAsVector() const;
+    [[nodiscard]] string getFileName() const;
+    [[nodiscard]] vector<Word> getWordList() const;
+    [[nodiscard]] int wordCount() const;
+    [[nodiscard]] int getCount(const Word& word) const;
+    [[nodiscard]] int sentenceCount() const;
+    [[nodiscard]] Sentence* getSentence(int index) const;
+    [[nodiscard]] int paragraphCount() const;
+    [[nodiscard]] Paragraph getParagraph(int index) const;
+    [[nodiscard]] int maxSentenceLength() const;
+    [[nodiscard]] vector<vector<Word*>> getAllWordsAsVector() const;
     void shuffleSentences(int seed);
     Corpus getTrainCorpus(int foldNo, int foldCount);
     Corpus getTestCorpus(int foldNo, int foldCount);
     void writeToFile(const string& _fileName) const;
-    string allSubStrings(const Word& word, int k) const;
+    [[nodiscard]] string allSubStrings(const Word& word, int k) const;
     void writeToFile(const string& _fileName, WordFormat format) const;
     void open() override;
     void close() override;
